@@ -32,4 +32,4 @@ if (!$this->getRequest()->getParam('store')) {
     return;
 }
 ?>
-<div style="margin-bottom: 30px;font-size:13px;"><a href="<?php echo Mage::helper("adminhtml")->getUrl('textmaster/adminhtml_project/createprojectfromproduct',array('id'=>Mage::app()->getRequest()->getParam('id'))); ?>"><?php echo Mage::helper('textmaster')->__('Translate product');?></a></div>
+<div style="margin-bottom: 30px;font-size:13px;"><a href="<?php echo Mage::helper("adminhtml")->getUrl('adminhtml/textmaster_project/createprojectfromproduct',array('id'=>Mage::app()->getRequest()->getParam('id'))); ?>"><?php echo Mage::helper('textmaster')->__('Translate product');?></a></div>

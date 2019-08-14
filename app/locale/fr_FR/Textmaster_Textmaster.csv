@@ -22,7 +22,7 @@ Duplicate,Dupliquer
 Continue,Continuer
 Update product,Mettre à jour la fiche produit
 Type,Type
-Traduction manquante :,Traduction manquante :
+"Missing translation: ","Traduction manquante : "
 Traduction existante,Traduction existante
 Project,Projet
 Fields to translate,Champs à traduire
@@ -35,16 +35,16 @@ Languages,Langues
 Select a language,Sélectionner une langue
 Pricing options,Options tarifaires
 Service level,Niveau de qualité
-Regular (%s/word): native-speaking translator for word-for-word translations of short texts.,"Regular (0.04 € / mot) : traducteur natif, traduction litérale adaptée pour des textes très courts."
-Premium (%s/word): experienced translator; suitable for business use.,"Premium (0.07 € / mot) : traducteur expérimenté, adapté pour un usage professionnel."
-Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.,"Enterprise (0.13 € / mot) : traducteur professionnel spécialisé, adapté pour des contenus techniques et complexes."
-Quality Control (+%s/word),Contrôle qualité (+0.04 € / mot)
+Regular (%s/word): native-speaking translator for word-for-word translations of short texts.,"Regular (%s / mot) : traducteur natif, traduction litérale adaptée pour des textes très courts."
+Standard (%s/word): Qualified native-speaking translators - best for short and simple projects.,"Standard (%s / mot) : Traducteur natif qualifié - adapté pour les projets simples et peu volumineux."
+Enterprise (%s/word): Professional translators - best for complex projects or high volume catalogs.,"Enterprise (%s / mot) : Traducteur professionnel - recommandé pour les traductions de catalogue complets ou fiches produits complexes."
+Quality Control (+%s/word),Contrôle qualité (+%s / mot)
 No,Non
 Yes,Oui
 The translator's work will be proofread and corrected by TextMaster,Le travail de l'auteur sera relu et corrigé par TextMaster.
-Priority Order (+%s/word),Commande prioritaire (+ 0.04 € / mot)
+Priority Order (+%s/word),Commande prioritaire (+%s / mot)
 Your project will be assigned a higher priority status.,Votre projet sera mis en avant et placé en haut de liste.
-Expertise (+%s/word),Expertise (+0.05 € / mot)
+Expertise (+%s/word),Expertise (+%s / mot)
 We provide you with an expert in the selected category.,Nous vous trouvons un expert dans le domaine de votre choix.
 Instructions du projet,Instructions du projet
 Briefing,Briefing
@@ -54,7 +54,7 @@ Single Author (Assign the entire project to a single TextMaster),Auteur unique (
 "Ensures better continuity, but longer turnaround time",Meilleure homogénéité éditoriale mais temps de traitement plus long
 Project Summary,Récapitulatif du projet
 Type of project,Type de projet
-Total word count,Nombre total de mot
+Total word count,Nombre total de mots
 Total cost,Coût total du projet
 Level and options,Niveau et options
 Project's name,Nom du projet
@@ -79,9 +79,9 @@ Email invalid,Email invalide
 Password mandatory,Mot de passe obligatoire
 Could not get access token,Impossible de récupérer le token d'accès
 Your account has been successfully created.,Votre compte a été créé avec succès.
-"Select the list of products to translate or proofread. Use the filter in the last column to select the product descriptions that haven't been translated yet. If the product description has already been translated on TextMaster, a flag will appear beside each completed translation.","Sélectionnez la liste des produits à traduire ou a corriger. Utiliser le filtre dans la dernière colonne pour sélectionner les fiches produits qui n'ont pas encore été traduites. Si la fiche produit a déjà été traduite sur Textmaster, un drapeau apparaît pour chaque traduction effectuée."
+"Select the list of products to translate or proofread. Use the filter in the last column to select the product descriptions that haven't been translated yet. If the product description has already been translated on TextMaster, a flag will appear beside each completed translation.","Sélectionnez la liste des produits à traduire ou à corriger. Utilisez le filtre dans la dernière colonne pour sélectionner les fiches produits qui n'ont pas encore été traduites. Si la fiche produit a déjà été traduite sur Textmaster, un drapeau apparaît pour chaque traduction effectuée."
 "Fill out the project details and choose the service level and extra options. Give translator or proofreader special instructions (specific terms, layout guidelines, etc.)","Définissez les propriétés de votre projet ainsi que le niveau de qualité souhaité et les options à la carte. Enfin, précisez vos instructions au traducteur ou au correcteur (termes spécifiques, instructions de mise en forme, etc.)."
-"Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com","Vérifiez les informations de votre projet avant de lancer votre commande. Si votre solde de crédit TextMaster est insuffisant, ciiquez sur le lien ci-deesous pour créditer votre compte sur TextMaster.com"
+"Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com","Vérifiez les informations de votre projet avant de lancer votre commande. Si votre solde de crédit TextMaster est insuffisant, cliquez sur le lien ci-dessous pour créditer votre compte sur TextMaster.com"
 Project creation error,Erreur lors de la création du projet
 No post,Pas de post
 Regular,Regular
@@ -112,7 +112,7 @@ Incomplete,Incomplet
 Paused,En pause
 Cancelled,Annulé
 Copyscape,Copyscape
-Counting words,Counting words
+Counting words,Comptage des mots
 Quality control,Contrôle qualité
 Control Quality,Contrôle qualité
 Expertise,Expertise
@@ -121,7 +121,7 @@ launch,Lancer
 paused,En pause
 resumed,Reprendre
 canceled,Annulé
-soit,soit
+worth,soit
 word,mot
 You need to be logged in to use this plugin.,Vous devez être connecté pour utiliser le module.
 Click here to log in or to create a TextMaster account.,Cliquer ici pour vous identifier ou créer un compte TextMaster
@@ -153,14 +153,14 @@ Elements,Eléments
 Text source,Texte source
 Translated text,Texte traduit
 Message to author for revision,Message pour l'auteur en vue d'une revision
-Translations,Translations
+Translations,Traductions
 You are viewing default/website values. Please select a store view (from left) to see translation options.,Veuillez sélectionner la langue dans la liste “store view” sur la gauche pour démarrer la traduction de votre produit.
 Translate product,Traduire le produit
 TextMaster Login,Login TextMaster
 Create your account,Créer votre compte
 The list below shows all of your TextMaster translation and proofreading projects.,La liste ci-dessous rassemble tous vos projets de traduction ou de correction lancés sur TextMaster.
 "To see a project's details, click on ''View'' in the last column. To start a translation project or to proofread your product descriptions, click on the ''New Project'' button.","Pour entrer dans le détail d'un de vos projets, cliquez sur ''Voir'' dans la dernière colonne du tableau. Pour commencer à traduire ou faire corriger vos fiches produits, cliquer sur le bouton ''Nouveau projet''. "
-Crédit disponible :,Crédits disponibles :
+Available credits:,Crédits disponibles :
 Crédit manquant :,Crédits manquants :
 Credits:,Crédits :
 Textmaster account,Compte TextMaster :
@@ -198,4 +198,18 @@ Connexion,Connexion
 Login,Identifiant
 Searching...,Searching...
 Logout,Déconnexion
-
+"message_loader_tm","La mémoire de traduction est en cours, cela prendre quelques minutes s'il contient beaucoup de fiches produits. Vous pouvez continuer votre navigation dans Magento et revenir ensuite finaliser votre projet."
+"Translation memory (+%s/word)","Mémoire de traduction (+%s / mot)"
+"Translation memory","Mémoire de traduction"
+"Total word count saved", "Nombre total de mots économisés"
+"Nb words that you saved:", "Nombre de mots économisés :"
+"Negotiated contract (%s/word)","Contract négocié (%s / mot)"
+"Negotiated contract","Contract négocié"
+"Negotiated contracts","Contracts négociés"
+"launched","Lancé"
+"We will analyze your project to find repetitions.","Votre projet sera analysé afin d'identifier et de déduire les répétitions."
+"Project Settings","Propriétés du projet"
+"Enable","Activé"
+"Disabled","Désactivé"
+"Visibility","Visibilité"
+"Add","Ajouter"

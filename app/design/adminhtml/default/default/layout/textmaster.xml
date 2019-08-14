@@ -32,7 +32,7 @@
 			<action method="addItem"><type>skin_js</type><name>js/textmaster/script.js</name></action>
 		</reference>
 	</default>
-    <textmaster_adminhtml_project_index>
+    <adminhtml_textmaster_project_index>
     	<reference name="head">
             <action method="addCss">
     			<name>css/textmaster/styles.css</name>
@@ -44,14 +44,14 @@
         	<block type="textmaster/adminhtml_credit" name="credit" template="textmaster/credit.phtml" />
             <block type="textmaster/adminhtml_project" template="textmaster/grid/container.phtml" name="project" />
         </reference>
-    </textmaster_adminhtml_project_index>
-    <textmaster_adminhtml_project_login>
+    </adminhtml_textmaster_project_index>
+    <adminhtml_textmaster_project_login>
     	<reference name="content">
         	<block type="core/template" name="credit" template="textmaster/login.phtml" />
             
         </reference>
-    </textmaster_adminhtml_project_login>
-    <textmaster_adminhtml_project_edit>
+    </adminhtml_textmaster_project_login>
+    <adminhtml_textmaster_project_edit>
     	 <reference name="head">
        		<action method="addJs"><script>prototype/window.js</script></action>
 	        <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
@@ -72,8 +72,8 @@
 	        <action method="setTemplate"><template>textmaster/page.phtml</template></action>	        
 	    </reference>
       
-    </textmaster_adminhtml_project_edit>
-    <textmaster_adminhtml_project_view>
+    </adminhtml_textmaster_project_edit>
+    <adminhtml_textmaster_project_view>
     	<reference name="head">
     		<action method="addCss">
     			<name>css/textmaster/styles.css</name>
@@ -89,8 +89,8 @@
         <reference name="root">
             <action method="setTemplate"><template>textmaster/page.phtml</template></action>            
         </reference>
-    </textmaster_adminhtml_project_view>
-    <textmaster_adminhtml_project_document>
+    </adminhtml_textmaster_project_view>
+    <adminhtml_textmaster_project_document>
     
     	<reference name="content">
     		<block type="textmaster/adminhtml_credit" name="credit" template="textmaster/credit.phtml" />
@@ -114,9 +114,9 @@
 	    <reference name="root">
             <action method="setTemplate"><template>textmaster/page.phtml</template></action>            
         </reference>
-    </textmaster_adminhtml_project_document>
+    </adminhtml_textmaster_project_document>
     	
-    <textmaster_adminhtml_project_getmyauthors>
+    <adminhtml_textmaster_project_getmyauthors>
     	<remove name="menu" />
     	<remove name="notifications" />
     	<remove name="header" />
@@ -131,5 +131,5 @@
     		</block>
     	</reference>
     	
-    </textmaster_adminhtml_project_getmyauthors>
+    </adminhtml_textmaster_project_getmyauthors>
 </layout>
