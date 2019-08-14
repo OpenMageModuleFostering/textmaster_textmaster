@@ -25,6 +25,11 @@
  */
 class Textmaster_Textmaster_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_action
 {
+        protected function _isAllowed()
+        {
+                return true;
+        }
+
 	public function loginAction(){
 		
 		$_api = Mage::helper('textmaster')->getApi();

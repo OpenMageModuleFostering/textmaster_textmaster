@@ -146,8 +146,6 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		}
 		$this->getForm()->getElement('price')->setAfterElementHtml($html);
 		
-		
-		
 		$post['price'] = '';
 		
 		$html = $this->getProject()->getLanguageLevelTexte($post['language_level']).'<br/>';
@@ -160,6 +158,9 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		if($post['expertise']) {
 			$html .= Mage::helper( 'textmaster' )->__( 'Expertise (+%s / mot)',$currency->format($tarifs['types']['translation']['expertise'],array(),false) ).'<br/>';
 		}
+        if($post['translation_memory']) {
+            $html .= Mage::helper( 'textmaster' )->__( 'Translation memory (+%s / mot)', $currency->format($tarifs['types']['translation']['translation_memory'],array(),false) ).'<br/>';
+        }
 		$html .= Mage::helper( 'textmaster' )->__('%s/word',$currency->format($price_per_word,array(),false));
 		
 		$this->getForm()->getElement('options')->setAfterElementHtml($html);

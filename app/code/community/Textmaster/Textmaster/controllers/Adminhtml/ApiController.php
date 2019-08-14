@@ -25,7 +25,12 @@
  */
 class Textmaster_Textmaster_Adminhtml_ApiController extends Mage_Core_Controller_Front_Action
 {
-	public function documentaddAction(){
+    protected function _isAllowed()
+    {
+        return true;
+    }
+
+    public function documentaddAction(){
 		$projectId = $this->getRequest()->getParam('id');
 		$project = Mage::getModel('textmaster/project')->load($projectId);
 		$project->sendDocument();

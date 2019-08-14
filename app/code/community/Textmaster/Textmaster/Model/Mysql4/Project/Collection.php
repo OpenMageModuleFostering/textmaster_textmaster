@@ -77,12 +77,12 @@
 	    $this->_renderOrders()
 	       ->_renderLimit();
 	    
-	   
-	    
-	    
-	    
-	    
-	    $this->data_api = $this->_api->getProjects (false,array('where'=>$this->_filters_api),array($this->_end ,$this->_start),isset($this->_order)?array($this->_order,$this->_sens):array('updated_at','desc'));
+	    $this->data_api = $this->_api->getProjects(
+            false,
+            array('where' => $this->_filters_api),
+            isset($this->_end) && isset($this->_start) ? array($this->_end, $this->_start) : array(0, 20),
+            isset($this->_order) ? array($this->_order, $this->_sens) : array('updated_at','desc')
+        );
 	    
 	    if(isset($this->data_api['projects'])){
 	        $this->_totalRecords = $this->data_api['count'];

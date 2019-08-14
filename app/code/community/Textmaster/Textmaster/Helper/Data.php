@@ -43,9 +43,12 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
 
     private $_api = false;
 
+    #project_tm_completed callback lancer launch project
+
     public function countWord ($txt)
     {
         $txt = utf8_decode($txt);
+        $txt = strip_tags($txt);
         $aMots = str_word_count($txt, 1, 
                 utf8_decode(
                         'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ'));
@@ -111,10 +114,14 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
     }
     
     public function getCallbackCompletedUrl ()
-    {return Mage::getUrl('textmaster/callback/documentcomplete');
-        
+    {
+        return Mage::getUrl('textmaster/callback/documentcomplete');
     }
     
+    public function getCallbackUrlTmComplete()
+    {
+        return Mage::getUrl('textmaster/callback/projecttmcomplete');
+    }
 
     public function getCallbackUrlInProgress ()
     {

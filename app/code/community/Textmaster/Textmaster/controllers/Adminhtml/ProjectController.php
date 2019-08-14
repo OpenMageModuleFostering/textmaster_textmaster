@@ -25,12 +25,17 @@
  */
 class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_Controller_Action
 {
+        protected function _isAllowed()
+        {
+                return Mage::getSingleton('admin/session')->isAllowed('textmaster/projet');
+        }
+
 	protected function _initAction() {
 		$this->loadLayout()
 		->_setActiveMenu('textmaster/project');
 		return $this;
 	}
-	
+
 	public function indexAction()
 	{
 	    $api_key = Mage::getStoreConfig('textmaster/textmaster/api_key');;
@@ -112,7 +117,7 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 				    $project_id = Mage::getSingleton('core/session')->getProjectId();
 				    $post = Mage::app()->getRequest()->getPost();
 				    if($post && count($post)){				       
-				        $project = Mage::getModel('textmaster/project')->load($project_id,null,false);
+				        $project = Mage::getModel('textmaster/project')->load($project_id, null, false);
 				        $r = $project->launch();
 				        if(!isset($r['error'])) {
 				            $this->_redirect('*/*/');
@@ -125,8 +130,8 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 				    Mage::getSingleton('adminhtml/session')->unsTextmasterUserInfos();
 				    
 					
-					$project = Mage::getModel('textmaster/project')->load($project_id);
-					if($project->hasDocumentsNotCount()){
+					$project = Mage::getModel('textmaster/project')->load($project_id, null, true);
+					if($project->hasDocumentsNotCount() || ($project->getTranslationMemory() && $project->getTranslationMemoryStatus() == Textmaster_Textmaster_Model_Project::PROJECT_TM_STATUS_IN_PROGRESS)){
 						$this->_redirect('*/*/edit', array("step" => 2));
 					}
 					$ongletBlock->setIntroHtml(Mage::helper('textmaster')->__('Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com'));
@@ -397,11 +402,9 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 		
 		$projectId = $this->getRequest()->getParam('id');
 		$project = Mage::getModel('textmaster/project');
-		$project->load($projectId,null,false);
+		$project->load($projectId, null, true);
 		$docs_all = $project->getDocuments();
 		$docs_notcount = $project->getDocumentsNotCount();
-
-		
 		
 		if($project->hasDocumentsNotCount())	{
 		    $ndoc = count($docs_all);
@@ -423,6 +426,13 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 			echo $r;
 			exit;
 		}
+
+        $project->startTranslationMemory(); // start TM if needed
+        if($project->getTranslationMemoryStatus() == Textmaster_Textmaster_Model_Project::PROJECT_TM_STATUS_IN_PROGRESS){
+            echo Textmaster_Textmaster_Model_Project::PROJECT_TM_STATUS_IN_PROGRESS;
+            exit;
+        }
+
 		//echo '100';
 		echo $this->getUrl('*/*/edit',array('step'=>3));
 		exit;
@@ -454,7 +464,7 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 			$word_count = Mage::helper('textmaster')->countWord($text);
 			//$pricing = Mage::helper('textmaster')->getApi()->getPricings($word_count);
 			//$project_id = Mage::getSingleton('core/session')->getProjectId();
-		
+     
 			$update = false;
 			if($project_id && is_numeric($project_id)){
 				$project->load($project_id);
@@ -468,7 +478,7 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 					$project->setStoreIdTranslation($post['store_id_translation']);
 				else
 					$project->setStoreIdTranslation($post['store_id_origin']);
-					
+				
 				$project->setLanguageLevel($post['language_level']);
 				if(isset($post['specific_attachment']))
 					$project->setSpecificAttachment($post['specific_attachment']);
@@ -482,6 +492,7 @@ class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_C
 				if(isset($post['mytextmaster'])) {
 					$project->setTextmasters($post['mytextmaster']);
 				}
+                $project->setTranslationMemory($post['translation_memory']);
 				
 				$update = true;
 					

@@ -201,7 +201,6 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         Mage::log(
                 'Log API ' . $method . ' ' . $name . ' : ' .
                          ($finlog - $debutlog), null, 'textmaster.log');
-        
         $info = curl_getinfo($curl);
 
        // Mage::log(Mage::helper('core')->jsonEncode($data),null,'textmaster.log');
@@ -666,7 +665,8 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         /* put service levels into array */
         $this->_service_levels = array(
                 'regular' => Mage::helper('textmaster')->__('Regular'),
-                'premium' => Mage::helper('textmaster')->__('Premium')
+                'premium' => Mage::helper('textmaster')->__('Premium'),
+                'enterprise' => Mage::helper('textmaster')->__('Enterprise')
         );
         return $this->_service_levels;
     }
@@ -890,18 +890,25 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                                                                        // default
                                                                        // values
         $options = array(
-                'language_level' => $parameters['language_level'],
-                'quality' => $parameters['quality'],
-                // 'expertise' => $parameters['expertise'],
-                'specific_attachment' => isset(
-                        $parameters['specific_attachment']) ? $parameters['specific_attachment'] : 'false',
-                'priority' => $parameters['priority']
+            'language_level'      => $parameters['language_level'],
+            'quality'             => isset($parameters['quality']) ? $parameters['quality'] : '0',
+            'translation_memory'  => isset($parameters['translation_memory']) ? $parameters['translation_memory'] : '0',
+            'specific_attachment' => isset($parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
+            'priority'            => isset($parameters['priority']) ? $parameters['priority'] : '0',
+            'uniq_author'         => isset($parameters['same_author_must_do_entire_project']) ? $parameters['same_author_must_do_entire_project'] : '0'
         );
         
-        unset($parameters['language_level'], $parameters['quality'], 
-                $parameters['expertise']);
+        unset($parameters['language_level'],
+                $parameters['quality'], 
+                $parameters['expertise'],
+                $parameters['translation_memory'],
+                $parameters['specific_attachment'],
+                $parameters['priority'],
+                $parameters['same_author_must_do_entire_project']
+        );
         
         $parameters['options'] = $options;
+
         
         if (isset($parameters['textmasters'])) {
             if (is_array($parameters['textmasters']) &&
@@ -910,6 +917,15 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
             if (! is_array($parameters['textmasters']))
                 unset($parameters['textmasters']);
         }
+
+        $parameters['callback'] = array(
+                'project_tm_completed' => array(
+                        'url' => Mage::helper('textmaster')->getCallbackUrlTmComplete(),
+                        'format' => 'json'
+                )
+        );
+
+        Mage::log($parameters);
         
         $data = array(
                 'project' => $parameters,
@@ -928,15 +944,23 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 unset($parameters[$field]);
         }
         $options = array(
-                'language_level' => $parameters['language_level'],
-                'quality' => isset($parameters['quality']) ? $parameters['quality'] : '0',
+                'language_level'      => $parameters['language_level'],
+                'quality'             => isset($parameters['quality']) ? $parameters['quality'] : '0',
+                'translation_memory'  => isset($parameters['translation_memory']) ? $parameters['translation_memory'] : '0',
+                'specific_attachment' => isset($parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
+                'priority'            => isset($parameters['priority']) ? $parameters['priority'] : '0',
+                'uniq_author'         => isset($parameters['same_author_must_do_entire_project']) ? $parameters['same_author_must_do_entire_project'] : '0',
                 // 'expertise' => isset($parameters['expertise']) ? $parameters['expertise'] : '0',
-                'specific_attachment' => isset(
-                        $parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
-                'priority' => isset($parameters['priority']) ? $parameters['priority'] : '0'
         );
-        unset($parameters['language_level'], $parameters['quality'], 
-                $parameters['expertise']);
+        unset($parameters['language_level'],
+                $parameters['quality'], 
+                $parameters['expertise'],
+                $parameters['translation_memory'],
+                $parameters['specific_attachment'],
+                $parameters['priority'],
+                $parameters['same_author_must_do_entire_project']
+        );
+
         $parameters['options'] = $options;
         if (isset($parameters['textmasters']) && ((is_array(
                 $parameters['textmasters']) &&
@@ -944,10 +968,15 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                  ! is_array($parameters['textmasters']))) {
             unset($parameters['textmasters']);
         }
+
         $parameters['callback'] = array(
                 'project_in_progress' => array(
                         'url' => Mage::helper('textmaster')->getCallbackUrlInProgress(),
                         "format" => "json"
+                ),
+                'project_tm_completed' => array(
+                        'url' => Mage::helper('textmaster')->getCallbackUrlTmComplete(),
+                        'format' => 'json'
                 )
         );
         

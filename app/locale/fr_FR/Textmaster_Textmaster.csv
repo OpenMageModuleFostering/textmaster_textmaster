@@ -38,13 +38,13 @@ Service level,Niveau de qualité
 Regular (%s/word): native-speaking translator for word-for-word translations of short texts.,"Regular (0.04 € / mot) : traducteur natif, traduction litérale adaptée pour des textes très courts."
 Premium (%s/word): experienced translator; suitable for business use.,"Premium (0.07 € / mot) : traducteur expérimenté, adapté pour un usage professionnel."
 Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.,"Enterprise (0.13 € / mot) : traducteur professionnel spécialisé, adapté pour des contenus techniques et complexes."
-Quality Control (+%s/word),Contrôle qualité (+0.04 € / mot)
+Quality Control (+%s/word),Contrôle qualité (+%s / mot)
 No,Non
 Yes,Oui
 The translator's work will be proofread and corrected by TextMaster,Le travail de l'auteur sera relu et corrigé par TextMaster.
-Priority Order (+%s/word),Commande prioritaire (+ 0.04 € / mot)
+Priority Order (+%s/word),Commande prioritaire (+%s / mot)
 Your project will be assigned a higher priority status.,Votre projet sera mis en avant et placé en haut de liste.
-Expertise (+%s/word),Expertise (+0.05 € / mot)
+Expertise (+%s/word),Expertise (+%s / mot)
 We provide you with an expert in the selected category.,Nous vous trouvons un expert dans le domaine de votre choix.
 Instructions du projet,Instructions du projet
 Briefing,Briefing
@@ -198,4 +198,6 @@ Connexion,Connexion
 Login,Identifiant
 Searching...,Searching...
 Logout,Déconnexion
-
+"message_loader_tm","La mémoire de traduction est en cours, cela prendre quelques minutes s'il contient beaucoup de fiches produits. Vous pouvez continuer votre navigation dans Magento et revenir ensuite finaliser votre projet."
+"Translation memory (+%s/word)","Mémoire de traduction (+%s / mot)"
+"Translation memory","Mémoire de traduction"

@@ -29,7 +29,7 @@
 
 	<modules>
 		<Textmaster_Textmaster>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 		</Textmaster_Textmaster>
 	</modules>
 	<global>
@@ -143,7 +143,7 @@
                 	            <config>
                     	            <children>
                         	            <textmaster translate="title">
-                            	            <title>textmaster section</title>
+                            	            <title>Textmaster section</title>
                                 	        <sort_order>100</sort_order>
                                     	</textmaster>                                    	
 	                                </children>

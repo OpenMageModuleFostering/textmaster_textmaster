@@ -110,10 +110,14 @@ jQueryOnLoad = function($){
 	    service_levels = $('#language_level option');
 	    expertises = $('#expertise option');
 	    priorities = $('#priority option');
+        translation_memories = $('#translation_memory option');
+
 	    label_expertises = new Array();
 	    label_priorities = new Array();
 		label_qualities = new Array();
 		label_service_levels = new Array();
+        label_translation_memories = new Array();
+
 		$.each(service_levels,function(index,value){
 			label_service_levels[index] = $(value).text();
 		});
@@ -126,6 +130,9 @@ jQueryOnLoad = function($){
 		$.each(priorities,function(index,value){
 			label_priorities[index] = $(value).text();
 		});
+        $.each(translation_memories,function(index,value){
+            label_translation_memories[index] = $(value).text();
+        });
 
 		updateDisplay = function(){
 			ctype = $('#ctype').val();
@@ -134,6 +141,7 @@ jQueryOnLoad = function($){
 			quality = $('#quality').val();
 			expertise = $('#expertise').val();
 			service_level = $('#language_level').val();
+            translation_memory = $('#translation_memory').val();
 			
 			$('#textmaster_projet').html($('#ctype option[value='+ctype+']').html());
 			
@@ -141,14 +149,20 @@ jQueryOnLoad = function($){
 			if(typeof service_level =='undefined'){
 				service_level = 'regular';				
 			}
-			if(ctype=='translation' && service_level=='premium'){
+			if(ctype=='translation' && (service_level=='premium' || service_level=='enterprise')){
 				$('#quality').removeAttr('disabled');
-			} else {
-				$('#quality').val(0);
-				$('#quality').attr('disabled','disabled');
-				quality = $('#quality').val();
-			}
-			$.each(service_levels,function(i,v){
+            } else {
+                $('#quality').val(0);
+                $('#quality').attr('disabled','disabled');
+                quality = $('#quality').val();
+            }
+            if(ctype=='translation' && service_level=='enterprise'){
+                $('#translation_memory').removeAttr('disabled');
+            }else {
+                $('#translation_memory').val(0);
+                $('#translation_memory').attr('disabled','disabled');
+            }
+            $.each(service_levels,function(i,v){
 				$(v).text(label_service_levels[i]);
 			});
 			
@@ -173,6 +187,11 @@ jQueryOnLoad = function($){
 				html_option += Translator.translate('Expertise')+'<br/>';
 				base_price += expertise_price;
 			}
+            translation_memory_price = parseFloat(textmaster_pricing['types'][ctype]['translation_memory']);
+            if(translation_memory=='1'){
+                html_option += Translator.translate('Translation memory')+'<br/>';
+                base_price += translation_memory_price;
+            }
 			/*if(specific_attachment=='1'){
 				html_option += 'Specific attachment<br/>';
 				base_price += parseFloat(textmaster_pricing['types'][ctype]['specific_attachment']);
@@ -220,6 +239,12 @@ jQueryOnLoad = function($){
 					$(v).text(label_expertises[i]+' +'+formatCurrency(price,priceFormat)+''+currency_symbol+'');
 				}
 			});
+            $.each(translation_memories,function(i,v){
+                if($(v).attr('value')!='0'){
+                    price = translation_memory_price*word_count;
+                    $(v).text(label_translation_memories[i]+' +'+formatCurrency(price,priceFormat)+''+currency_symbol+'');
+                }
+            });
 			/*dataAuthor = {
 				ctype 				: ctype,
 				word_count 			: word_count,
@@ -254,7 +279,7 @@ jQueryOnLoad = function($){
 		
 		//updateDisplay();
 		
-		$('input[id^=attribute_],#ctype,#specific_attachment,#priority,#quality,#expertise,#language_level,#store_id_translation').change(function(){
+		$('input[id^=attribute_],#ctype,#specific_attachment,#priority,#quality,#expertise,#language_level,#store_id_translation,#translation_memory').change(function(){
 			updateDisplay();
 		});
 		store_id = $('#store_id_origin').val();
@@ -399,8 +424,14 @@ function documentSend (url){
 				method: 'get',
 				onSuccess: function(oXHR) {
 					if(oXHR.responseText.substr(0,4) != 'http'){
-						html = oXHR.responseText+'%'+'<span class="progress-cadre"><span class="progress" style="width:'+oXHR.responseText+'%"></span></span>';
-						html += '<span class="message">'+nouveau_message_loader+'</span>';
+                        console.log(oXHR.responseText);
+                        if(oXHR.responseText == 'in_progress'){
+    						html = '100% <span class="progress-cadre"><span class="progress" style="width:100%"></span></span>';
+    						html += '<span class="message">'+message_loader_tm+'</span>';
+                        }else{
+                            html = oXHR.responseText+'%'+'<span class="progress-cadre"><span class="progress" style="width:'+oXHR.responseText+'%"></span></span>';
+                            html += '<span class="message">'+nouveau_message_loader+'</span>';
+                        }
 						$('loading_mask_loader_message').update(html);
 						if(!stop_ajax)
 							documentSend(url);
@@ -414,7 +445,6 @@ function documentSend (url){
 			}
 	);
 }
-
 
 function showAuthors(url,title) {
     winCompare = new Window({url:url,title:title,width:680,minimizable:false,maximizable:false,showEffectOptions:{duration:0.4},hideEffectOptions:{duration:0.4}});

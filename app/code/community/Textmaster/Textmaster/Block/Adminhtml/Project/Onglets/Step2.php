@@ -74,11 +74,7 @@
 				'disabled' => false,
 				'readonly' => false 
 		));
-		
-		
-		
-		
-		
+
 		$products_id = Mage::getSingleton('core/session')->getSelectedProducts();
 		$text = '';
 		$products = array();
@@ -159,7 +155,8 @@
 		<script>
             var attribute_word_count = '.Mage::helper('core')->jsonEncode($aAfterJs).';
 			var nouveau_message_loader = "'.Mage::helper ( 'textmaster' )->__ ( 'Nouveau message variable' ).'";
-			var must_display_loader = '.($this->getProject()&&$this->getProject()->hasDocumentsNotCount()?"true":'false').';
+			var message_loader_tm = "'.Mage::helper ( 'textmaster' )->__ ( 'message_loader_tm' ).'";
+			var must_display_loader = '.($this->getProject() && ($this->getProject()->hasDocumentsNotCount() || ($this->getProject()->getTranslationMemory() && ($this->getProject()->getTranslationMemoryStatus() == Textmaster_Textmaster_Model_Project::PROJECT_TM_STATUS_IN_PROGRESS || $this->getProject()->getTranslationMemoryStatus() == Textmaster_Textmaster_Model_Project::PROJECT_TM_STATUS_COMPLETED))) ?"true":'false').';
 		    var pourcent_avance = '.$r.';
 			var textmasterurl_count = "'.($this->getProject()?Mage::getSingleton('adminhtml/url')->getUrl('*/*/createprojectready',array('id'=>$this->getProject()->getId())):'').'";
 			var currency_symbol = "'.$curr->getSymbol().'";
@@ -229,13 +226,14 @@
 				'name'      => 'language_level',
 				'required'  => true,
 				'values' => array(
-						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR),
-						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM),
+						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR    => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR),
+						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM    => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM),
+						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_ENTERPRISE => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_ENTERPRISE),
 				),
 				'after_element_html' => '<br/><small>'.
 				Mage::helper('textmaster')->__('Regular (%s/word): native-speaking translator for word-for-word translations of short texts.',$currency->format($tarifs['types']['translation']['regular'])).'<br/>'.
 				Mage::helper('textmaster')->__('Premium (%s/word): experienced translator; suitable for business use.',$currency->format($tarifs['types']['translation']['premium'])) .'<br/>'.
-				Mage::helper('textmaster')->__('Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.',$currency->format(0.13)) .'<br/>'.
+				Mage::helper('textmaster')->__('Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.',$currency->format($tarifs['types']['translation']['enterprise'])) .'<br/>'.
 				'</small>',
 		));
 		
@@ -271,7 +269,19 @@
 				'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We provide you with an expert in the selected category.').'</small>',
 				
 		) );
-		
+		$fieldset->addField('translation_memory', 'select', array (
+				'label'    => Mage::helper('textmaster')->__('Translation memory (+%s/word)', $currency->format($tarifs['types']['translation']['translation_memory'], array(), false)),
+				'name'     => 'translation_memory',
+				'disabled' => 'disabled',
+				'required' => true,
+				'values'   => array(
+					Mage::helper ( 'textmaster' )->__ ( 'No' ),
+					Mage::helper ( 'textmaster' )->__ ( 'Yes' )
+				),
+				'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We will find some words in our database').'</small>',
+						
+		) );
+
 		
 		$fieldset = $form->addFieldset ( 'project_name', array (
 				'legend' => Mage::helper ( 'textmaster' )->__ ( 'Instructions du projet' )
