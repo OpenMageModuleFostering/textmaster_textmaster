@@ -52,8 +52,6 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		
 		$word_count = Mage::getSingleton('core/session')->getWordCount();
 		
-		
-		
 		$fieldset = $form->addFieldset ( 'project_information', array (
 				'legend' => Mage::helper ( 'textmaster' )->__ ( 'Project Summary' )
 		) );
@@ -66,6 +64,13 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		$fieldset->addField ( 'total_word_count', 'label', array (
 				'label' => Mage::helper ( 'textmaster' )->__ ( 'Total word count' ),				
 		));
+
+        if (Mage::helper('textmaster')->showProjectDiffWordCount($this->getProject())){
+            $fieldset->addField ('total_word_count_saved', 'label', array (
+                    'label' => Mage::helper ( 'textmaster' )->__ ( 'Total word count saved' ),
+                    'value' => $this->getProject()->getDiffWordCount()
+            ));
+        }
 		
 		$optionsField = $fieldset->addField ( 'options', 'label', array(
 				'label' => Mage::helper ( 'textmaster' )->__ ( 'Level and options' ),
@@ -144,9 +149,14 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 			$html .='<br/><span style="color:red">'.Mage::helper('textmaster')->__('Crédit manquant :'). $currency->format(($project_price-$credit), array(), false).'</span>';
 			$html .='<br/><a href="'.$_api->getInterfaceUri().'clients/payment_requests/new?project_id='.$this->getProject()->getProjectApiid().'" target="_blank">'.Mage::helper('textmaster')->__('Add credits to my TextMaster account').'</a>';
 		}
-		$this->getForm()->getElement('price')->setAfterElementHtml($html);
-		
-		$post['price'] = '';
+
+        $this->getForm()->getElement('price')->setAfterElementHtml($html);
+        
+        $post['price'] = '';
+
+        if (Mage::helper('textmaster')->showProjectDiffWordCount($this->getProject())){
+            $post['total_word_count_saved'] = $this->getProject()->getDiffWordCount();
+        }
 		
 		$html = $this->getProject()->getLanguageLevelTexte($post['language_level']).'<br/>';
 		if($post['quality']) {
@@ -159,7 +169,7 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 			$html .= Mage::helper( 'textmaster' )->__( 'Expertise (+%s / mot)',$currency->format($tarifs['types']['translation']['expertise'],array(),false) ).'<br/>';
 		}
         if($post['translation_memory']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Translation memory (+%s / mot)', $currency->format($tarifs['types']['translation']['translation_memory'],array(),false) ).'<br/>';
+            $html .= Mage::helper( 'textmaster' )->__( 'Translation memory (+%s/word)', $currency->format($tarifs['types']['translation']['translation_memory'],array(),false) ).'<br/>';
         }
 		$html .= Mage::helper( 'textmaster' )->__('%s/word',$currency->format($price_per_word,array(),false));
 		

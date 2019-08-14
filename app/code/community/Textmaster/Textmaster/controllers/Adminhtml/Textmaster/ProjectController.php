@@ -23,19 +23,19 @@
  * @copyright   Copyright (c) 2014 Textmaster
  * @author 	    Addonline (http://www.addonline.fr)
  */
-class Textmaster_Textmaster_Adminhtml_ProjectController extends Mage_Adminhtml_Controller_Action
+class Textmaster_Textmaster_Adminhtml_Textmaster_ProjectController extends Mage_Adminhtml_Controller_Action
 {
-        protected function _isAllowed()
-        {
-                return Mage::getSingleton('admin/session')->isAllowed('textmaster/projet');
-        }
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('textmaster/projet');
+    }
 
 	protected function _initAction() {
 		$this->loadLayout()
 		->_setActiveMenu('textmaster/project');
 		return $this;
 	}
-
+	
 	public function indexAction()
 	{
 	    $api_key = Mage::getStoreConfig('textmaster/textmaster/api_key');;

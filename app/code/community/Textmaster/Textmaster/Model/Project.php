@@ -460,6 +460,33 @@
 	    
 	    return $this->_documents_send_notcompleted;
 	}
+    public function getDocumentsCounted(){
+        if(isset($this->_documents_completed)) return $this->_documents_completed;
+        $this->_documents_completed = Mage::getModel('textmaster/document')->getCollection()->setLoadApi($this->_api_loaded)
+            ->addFieldToFilter('textmaster_project_id',$this->getTextmasterProjectId())
+            ->addFieldToFilter('counted',1);
+        foreach($this->_documents_completed as $doc){
+            $doc->setProject($this);
+        }
+        
+        return $this->_documents_completed;
+    }
+    public function getLocalWordCount(){
+        $docs = $this->getDocumentsCounted();
+        $totalWordCount = 0;
+        foreach ($docs as $doc) {
+            $data = $doc->prepareData();
+            $totalWordCount += $data['word_count'];
+        }
+        return $totalWordCount;
+    }
+    public function getDiffWordCount(){
+        $externalWordCount = $this->getTotalWordCount();
+        $localWordCount = $this->getLocalWordCount();
+        if(($externalWordCount >= $localWordCount) or $localWordCount == 0)
+            return 0;
+        return $localWordCount-$externalWordCount;
+    }
 	public function sendDocuments(){
 		if($this->hasDocumentsNotSend()){
 			$nbDocumentToSend = Mage::getConfig()->getNode('adminhtml/api/documents/send/nb')->asArray();			
@@ -767,7 +794,7 @@
 	        $this->setCurrency($data['cost_in_currency']['currency']);
 	    }
 	    if(isset($data['progress']))
-	        $this->setProgression(round((float)$data['progress'],0).'%');
+	        $this->setProgression(round((float)($data['progress']*100),0).'%');
 	    else $this->setProgression('0%');
 
 	    if(isset($data['options']['language_level']))

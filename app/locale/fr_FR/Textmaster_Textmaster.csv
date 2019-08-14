@@ -36,7 +36,7 @@ Select a language,Sélectionner une langue
 Pricing options,Options tarifaires
 Service level,Niveau de qualité
 Regular (%s/word): native-speaking translator for word-for-word translations of short texts.,"Regular (0.04 € / mot) : traducteur natif, traduction litérale adaptée pour des textes très courts."
-Premium (%s/word): experienced translator; suitable for business use.,"Premium (0.07 € / mot) : traducteur expérimenté, adapté pour un usage professionnel."
+Standard (%s/word): experienced translator; suitable for business use.,"Standard (0.07 € / mot) : traducteur expérimenté, adapté pour un usage professionnel."
 Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.,"Enterprise (0.13 € / mot) : traducteur professionnel spécialisé, adapté pour des contenus techniques et complexes."
 Quality Control (+%s/word),Contrôle qualité (+%s / mot)
 No,Non
@@ -54,7 +54,7 @@ Single Author (Assign the entire project to a single TextMaster),Auteur unique (
 "Ensures better continuity, but longer turnaround time",Meilleure homogénéité éditoriale mais temps de traitement plus long
 Project Summary,Récapitulatif du projet
 Type of project,Type de projet
-Total word count,Nombre total de mot
+Total word count,Nombre total de mots
 Total cost,Coût total du projet
 Level and options,Niveau et options
 Project's name,Nom du projet
@@ -201,3 +201,5 @@ Logout,Déconnexion
 "message_loader_tm","La mémoire de traduction est en cours, cela prendre quelques minutes s'il contient beaucoup de fiches produits. Vous pouvez continuer votre navigation dans Magento et revenir ensuite finaliser votre projet."
 "Translation memory (+%s/word)","Mémoire de traduction (+%s / mot)"
 "Translation memory","Mémoire de traduction"
+"Total word count saved", "Nombre total de mots économisés"
+"Nb words that you saved:", "Nombre de mots économisés :"

@@ -40,7 +40,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Login exten
 			$html .= "<script>			
 			function loginAjaxAction(){
 	
-				var reloadurl = '". $this->getUrl('textmaster/adminhtml_ajax/login/')."';
+				var reloadurl = '". $this->getUrl('adminhtml/textmaster_ajax/login/')."';
 				new Ajax.Request(reloadurl, {
 					method: 'post',
 					parameters: {
@@ -60,7 +60,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Login exten
 							$('result_ajax').update(data.errors);
 						} else {						
 							$('result_ajax').update(data.html);
-							window.location = '".$this->getUrl('textmaster/adminhtml_project/index/')."';
+							window.location = '".$this->getUrl('adminhtml/textmaster_project/index/')."';
 						}
 					}
 				});
@@ -73,7 +73,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Login exten
 			$html .= "<script>
 			function logoutAjaxAction(){
 			
-				var reloadurl = '". $this->getUrl('textmaster/adminhtml_ajax/logout/')."';
+				var reloadurl = '". $this->getUrl('adminhtml/textmaster_ajax/logout/')."';
 				new Ajax.Request(reloadurl, {
 					method: 'post',				
 					requestHeaders: {Accept: 'application/json'},

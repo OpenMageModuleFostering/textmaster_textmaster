@@ -49,20 +49,24 @@ $_helper = Mage::helper('textmaster');
             	<td><?php echo $_helper->__('Word count:'); ?></td>
             	<td><?php echo (int)$_project->getTotalWordCount(); ?></td>
             </tr>
+            <?php if ($_helper->showProjectDiffWordCount($_project)): ?>
             <tr>
-            	<td><?php echo $_helper->__('Level:'); ?></td>
-            	<td><?php echo $_project->getLanguageLevelTexte(); ?></td>
+                <td><?php echo $_helper->__('Nb words that you saved:'); ?></td>
+                <td><?php echo $_project->getDiffWordCount() ?></td>
+            </tr>
+            <?php endif ?>
+            <tr>
+                <td><?php echo $_helper->__('Level:'); ?></td>
+                <td><?php echo $_project->getLanguageLevelTexte(); ?></td>
             </tr>        
             <tr>
-            	<td><?php echo $_helper->__('Single author:'); ?></td>
-            	<td><?php echo $_project->getSameAuthorMustDoEntireProject()?$_helper->__('Yes'):$_helper->__('No'); ?></td>
+                <td><?php echo $_helper->__('Single author:'); ?></td>
+                <td><?php echo $_project->getSameAuthorMustDoEntireProject()?$_helper->__('Yes'):$_helper->__('No'); ?></td>
             </tr>
             <tr>
-            	<td><?php echo $_helper->__('Briefing:'); ?></td>
-            	<td><?php echo $_project->getProjectBriefing(); ?></td>
+                <td><?php echo $_helper->__('Briefing:'); ?></td>
+                <td><?php echo $_project->getProjectBriefing(); ?></td>
             </tr>
-            
-            
         </table>
         <table cellspacing="2" class="box-right">
         	<tr>
@@ -92,6 +96,7 @@ $_helper = Mage::helper('textmaster');
             	<?php echo $_project->getQuality()?Mage::helper( 'textmaster' )->__( 'Quality control' ).'<br/>':''; ?>
             	<?php echo $_project->getPriority()?Mage::helper( 'textmaster' )->__( 'Priority order' ).'<br/>':''; ?>
             	<?php echo $_project->getExpertise()?Mage::helper( 'textmaster' )->__( 'Expertise' ).'<br/>':''; ?>
+                <?php echo $_project->getTranslationMemory()?Mage::helper( 'textmaster' )->__( 'Translation memory' ).'<br/>':''; ?>
             	</td>
             </tr>
         </table>

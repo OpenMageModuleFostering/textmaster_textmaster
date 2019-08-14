@@ -226,13 +226,13 @@
 				'name'      => 'language_level',
 				'required'  => true,
 				'values' => array(
-						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR    => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR),
-						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM    => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM),
+						// Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR    => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR),
+						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM    => 'Standard',
 						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_ENTERPRISE => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_ENTERPRISE),
 				),
+                // Mage::helper('textmaster')->__('Regular (%s/word): native-speaking translator for word-for-word translations of short texts.',$currency->format($tarifs['types']['translation']['regular'])).'<br/>'.
 				'after_element_html' => '<br/><small>'.
-				Mage::helper('textmaster')->__('Regular (%s/word): native-speaking translator for word-for-word translations of short texts.',$currency->format($tarifs['types']['translation']['regular'])).'<br/>'.
-				Mage::helper('textmaster')->__('Premium (%s/word): experienced translator; suitable for business use.',$currency->format($tarifs['types']['translation']['premium'])) .'<br/>'.
+				Mage::helper('textmaster')->__('Standard (%s/word): experienced translator; suitable for business use.',$currency->format($tarifs['types']['translation']['premium'])) .'<br/>'.
 				Mage::helper('textmaster')->__('Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.',$currency->format($tarifs['types']['translation']['enterprise'])) .'<br/>'.
 				'</small>',
 		));
@@ -258,17 +258,17 @@
 				),
 				'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('Your project will be assigned a higher priority status.').'</small>',
 		) );
-		$fieldset->addField ( 'expertise', 'select', array (
-				'label' => Mage::helper ( 'textmaster' )->__ ( 'Expertise (+%s/word)', $currency->format($tarifs['types']['translation']['expertise'],array(),false) ),
-				'name' => 'expertise',
-				'required' => true,
-				'values' => array(
-						Mage::helper ( 'textmaster' )->__ ( 'No' ),
-						Mage::helper ( 'textmaster' )->__ ( 'Yes' )
-				),
-				'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We provide you with an expert in the selected category.').'</small>',
+		// $fieldset->addField ( 'expertise', 'select', array (
+		// 		'label' => Mage::helper ( 'textmaster' )->__ ( 'Expertise (+%s/word)', $currency->format($tarifs['types']['translation']['expertise'],array(),false) ),
+		// 		'name' => 'expertise',
+		// 		'required' => true,
+		// 		'values' => array(
+		// 				Mage::helper ( 'textmaster' )->__ ( 'No' ),
+		// 				Mage::helper ( 'textmaster' )->__ ( 'Yes' )
+		// 		),
+		// 		'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We provide you with an expert in the selected category.').'</small>',
 				
-		) );
+		// ) );
 		$fieldset->addField('translation_memory', 'select', array (
 				'label'    => Mage::helper('textmaster')->__('Translation memory (+%s/word)', $currency->format($tarifs['types']['translation']['translation_memory'], array(), false)),
 				'name'     => 'translation_memory',

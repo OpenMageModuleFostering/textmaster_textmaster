@@ -925,7 +925,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 )
         );
 
-        Mage::log($parameters);
+        // Mage::log($parameters);
         
         $data = array(
                 'project' => $parameters,

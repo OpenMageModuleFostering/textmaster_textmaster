@@ -162,4 +162,14 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return strtolower(str_replace('_', '-', Mage::getStoreConfig('general/locale/code',$storeId)));
     }
+
+    public function showProjectDiffWordCount($project){
+        $totalWordCount = $project->getTotalWordCount();
+        if(!$project->getTranslationMemory() or $totalWordCount == 0)
+            return false;
+        $diffWordCount = $project->getDiffWordCount();
+        if((($diffWordCount*100)/$totalWordCount) >= 5)
+            return true;
+        return false;
+    }
 }

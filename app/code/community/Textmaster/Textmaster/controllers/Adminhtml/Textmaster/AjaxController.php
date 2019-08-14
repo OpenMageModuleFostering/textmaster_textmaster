@@ -23,13 +23,13 @@
  * @copyright   Copyright (c) 2014 Textmaster
  * @author 	    Addonline (http://www.addonline.fr)
  */
-class Textmaster_Textmaster_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_action
+class Textmaster_Textmaster_Adminhtml_Textmaster_AjaxController extends Mage_Adminhtml_Controller_action
 {
-        protected function _isAllowed()
-        {
-                return true;
-        }
-
+    protected function _isAllowed()
+    {
+        return true;
+    }
+    
 	public function loginAction(){
 		
 		$_api = Mage::helper('textmaster')->getApi();

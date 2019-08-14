@@ -40,7 +40,7 @@ $steps = array(
 		<li class="step<?php echo $i;?> <?php echo $class; ?>">
 			<span>
 				<?php if($i < $step){?>
-					<a href="<?php echo Mage::helper("adminhtml")->getUrl("textmaster/adminhtml_project/edit" , array('step' => $i , '_query' => array('internal_products_id' => implode("," , $selectedProducts))));?>">
+					<a href="<?php echo Mage::helper("adminhtml")->getUrl("adminhtml/textmaster_project/edit" , array('step' => $i , '_query' => array('internal_products_id' => implode("," , $selectedProducts))));?>">
 						<?php echo $steps[$i]["label"];?>
 					</a>
 				<?php } else { 
