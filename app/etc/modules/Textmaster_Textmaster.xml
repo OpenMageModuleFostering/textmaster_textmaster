@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Textmaster_Textmaster>
-            <active>true</active>
-            <codePool>community</codePool>
-        </Textmaster_Textmaster>
-    </modules>
-</config> 
