@@ -138,7 +138,7 @@
             if(!isset($data_api['error'])){
                 $this->project_loaded = true;
                 if(isset($data_api['options']['language_level']))
-                    $this->setLanguageLevel($data_api['options']['language_level']);
+                    $this->setLanguageLevel($data_api['option_values']['language_level']);
                 else 
                     $this->setLanguageLevel('regular');
                 if(isset($data_api['reference']))
@@ -156,7 +156,7 @@
 				$this->setProjectBriefing($data_api['project_briefing']);
 				
 				if(isset($data_api['options']['specific_attachment']))
-					$this->setSpecificAttachment($data_api['options']['specific_attachment']);
+					$this->setSpecificAttachment($data_api['option_values']['specific_attachment']);
 				else 
 					$this->setSpecificAttachment(0);
 				
@@ -170,22 +170,24 @@
 					$this->setPrice(0);								
 				}
 				if(isset($data_api['options']['priority']))
-					$this->setPriority($data_api['options']['priority']);
+					$this->setPriority($data_api['option_values']['priority']);
 				else {
 					$this->setPriority(0);
 				}
 				if(isset($data_api['options']['quality']))
-					$this->setQuality($data_api['options']['quality']);
+					$this->setQuality($data_api['option_values']['quality']);
 				else {
 					$this->setQuality(0);
 				}
 				if(isset($data_api['options']['expertise']))
-					$this->setExpertise($data_api['options']['expertise']);
+					$this->setExpertise($data_api['option_values']['expertise']);
 				else {
 					$this->setExpertise(0);
 				}
                 if(isset($data_api['options']['translation_memory']))
-                    $this->setTranslationMemory($data_api['options']['translation_memory']);
+                    $this->setTranslationMemory($data_api['option_values']['translation_memory']);
+                if(isset($data_api['options']['negotiated_contract']))
+                    $this->setNegotiatedContract($data_api['option_values']['negotiated_contract']);
                 
 				//TODO 
 				$this->setIsmytextmaster(0);
@@ -628,7 +630,7 @@
 			    Mage::getSingleton('adminhtml/session')->unsTextmasterUserInfos();
 				$this->setStatus(self::PROJECT_STATUS_IN_LAUNCH_PROCESSING);
 				$this->save();				
-				Mage::getSingleton('adminhtml/session')->addSuccess($this->getName().' '.Mage::helper('textmaster')->__('launch'));
+				Mage::getSingleton('adminhtml/session')->addSuccess($this->getName().' '.Mage::helper('textmaster')->__('launched'));
 				return true;
 			} else {
 				Mage::getSingleton('adminhtml/session')->addError($this->getName().' '.$result['error']);

@@ -81,7 +81,7 @@ Could not get access token,Impossible de récupérer le token d'accès
 Your account has been successfully created.,Votre compte a été créé avec succès.
 "Select the list of products to translate or proofread. Use the filter in the last column to select the product descriptions that haven't been translated yet. If the product description has already been translated on TextMaster, a flag will appear beside each completed translation.","Sélectionnez la liste des produits à traduire ou a corriger. Utiliser le filtre dans la dernière colonne pour sélectionner les fiches produits qui n'ont pas encore été traduites. Si la fiche produit a déjà été traduite sur Textmaster, un drapeau apparaît pour chaque traduction effectuée."
 "Fill out the project details and choose the service level and extra options. Give translator or proofreader special instructions (specific terms, layout guidelines, etc.)","Définissez les propriétés de votre projet ainsi que le niveau de qualité souhaité et les options à la carte. Enfin, précisez vos instructions au traducteur ou au correcteur (termes spécifiques, instructions de mise en forme, etc.)."
-"Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com","Vérifiez les informations de votre projet avant de lancer votre commande. Si votre solde de crédit TextMaster est insuffisant, ciiquez sur le lien ci-deesous pour créditer votre compte sur TextMaster.com"
+"Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com","Vérifiez les informations de votre projet avant de lancer votre commande. Si votre solde de crédit TextMaster est insuffisant, cliquez sur le lien ci-dessous pour créditer votre compte sur TextMaster.com"
 Project creation error,Erreur lors de la création du projet
 No post,Pas de post
 Regular,Regular
@@ -203,3 +203,7 @@ Logout,Déconnexion
 "Translation memory","Mémoire de traduction"
 "Total word count saved", "Nombre total de mots économisés"
 "Nb words that you saved:", "Nombre de mots économisés :"
+"Negotiated contract (%s/word)","Contract négocié (%s / mot)"
+"Negotiated contract","Contract négocié"
+"Negotiated contracts","Contracts négociés"
+"launched","Lancé"

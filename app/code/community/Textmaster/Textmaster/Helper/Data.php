@@ -163,6 +163,11 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
         return strtolower(str_replace('_', '-', Mage::getStoreConfig('general/locale/code',$storeId)));
     }
 
+    /**
+     * Return true if translation memory is enable and with have 5% diff word count
+     * @param  $project
+     * @return boolean
+     */
     public function showProjectDiffWordCount($project){
         $totalWordCount = $project->getTotalWordCount();
         if(!$project->getTranslationMemory() or $totalWordCount == 0)
@@ -171,5 +176,35 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
         if((($diffWordCount*100)/$totalWordCount) >= 5)
             return true;
         return false;
+    }
+
+    public function getNegotiatedContracts(){
+        $negotiatedContracts = Mage::getModel('textmaster/api')->getNegotiatedContracts();
+        $negotiatedContracts = $negotiatedContracts['negotiated_contracts'];
+        return $negotiatedContracts;
+    }
+
+    public function getNegotiatedContractsFormated(){
+        $negotiatedContracts = $this->getNegotiatedContracts();
+        $negotiatedContractsField = array('' => $this->__('No contract selected'));
+        $currencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+        $currencySymbol = Mage::app()->getLocale()->currency($currencyCode)->getSymbol();
+        $symbol = '';
+        foreach ($negotiatedContracts as $negotiatedContract) {
+            if($negotiatedContract['client_pricing_in_locale'] > 0)
+                $symbol = '+';
+            $price = $symbol.$negotiatedContract['client_pricing_in_locale'].$currencySymbol;
+            $negotiatedContractsField[$negotiatedContract['id']] = $negotiatedContract['name'].' '.$this->__('(%s/word)', $price, array(), false);
+        }
+        return $negotiatedContractsField;
+    }
+
+    public function getNegotiatedContractsPricing(){
+        $negotiatedContracts = $this->getNegotiatedContracts();
+        $negotiatedContractsPrices = array();
+        foreach ($negotiatedContracts as $negotiatedContract) {
+            $negotiatedContractsPrices[$negotiatedContract['id']] = $negotiatedContract['client_pricing_in_locale'];
+        }
+        return $negotiatedContractsPrices;
     }
 }

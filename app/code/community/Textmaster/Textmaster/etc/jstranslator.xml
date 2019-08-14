@@ -41,4 +41,7 @@
     <textmaster_translation_memory translate="message" module="textmaster">
         <message>Translation memory</message>
     </textmaster_translation_memory>
+    <textmaster_negotiated_contract translate="message" module="textmaster">
+        <message>Negotiated contract</message>
+    </textmaster_negotiated_contract>
 </jstranslator>

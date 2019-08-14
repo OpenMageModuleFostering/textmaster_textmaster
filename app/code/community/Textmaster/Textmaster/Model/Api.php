@@ -44,6 +44,8 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
 
     protected $_users_me = false;
 
+    protected $_negotiated_contracts = array();
+
     const TEXTMASTER_API_VERSION = 'v1';
 
     const TEXTMASTER_PROD_API_URI = 'http://api.textmaster.com';
@@ -204,7 +206,8 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         $info = curl_getinfo($curl);
 
        // Mage::log(Mage::helper('core')->jsonEncode($data),null,'textmaster.log');
-       //Mage::log($info,null,'textmaster.log');
+       // Mage::log($info,null,'textmaster.log');
+       // Mage::log($result,null,'textmaster.log');
         
         
         if ($info['http_code'] == '500') {
@@ -802,6 +805,16 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         return $audience;
     }
 
+    public function getNegotiatedContracts(){
+        if($this->_negotiated_contracts)
+            return $this->_negotiated_contracts;
+
+        $negotiatedContracts = $this->_request("negotiated_contracts?per_page=100", false, true);
+        $this->_negotiated_contracts = $negotiatedContracts;
+
+        return $negotiatedContracts;
+    }
+
     public function getPricings ($word_count = 1)
     {
         if ($this->_prices)
@@ -893,6 +906,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
             'language_level'      => $parameters['language_level'],
             'quality'             => isset($parameters['quality']) ? $parameters['quality'] : '0',
             'translation_memory'  => isset($parameters['translation_memory']) ? $parameters['translation_memory'] : '0',
+            'negotiated_contract' => isset($parameters['negotiated_contract']) ? $parameters['negotiated_contract'] : '',
             'specific_attachment' => isset($parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
             'priority'            => isset($parameters['priority']) ? $parameters['priority'] : '0',
             'uniq_author'         => isset($parameters['same_author_must_do_entire_project']) ? $parameters['same_author_must_do_entire_project'] : '0'
@@ -902,6 +916,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 $parameters['quality'], 
                 $parameters['expertise'],
                 $parameters['translation_memory'],
+                $parameters['negotiated_contract'],
                 $parameters['specific_attachment'],
                 $parameters['priority'],
                 $parameters['same_author_must_do_entire_project']
@@ -932,6 +947,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 'tracker' => self::TEXTMASTER_TRACKER_ID
         );
         
+
         if ($quotation)
             return $this->_post('projects/quotation', $data, 'get');
         return $this->_post('projects', $data);
@@ -947,6 +963,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 'language_level'      => $parameters['language_level'],
                 'quality'             => isset($parameters['quality']) ? $parameters['quality'] : '0',
                 'translation_memory'  => isset($parameters['translation_memory']) ? $parameters['translation_memory'] : '0',
+                'negotiated_contract'  => isset($parameters['negotiated_contract']) ? $parameters['negotiated_contract'] : '',
                 'specific_attachment' => isset($parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
                 'priority'            => isset($parameters['priority']) ? $parameters['priority'] : '0',
                 'uniq_author'         => isset($parameters['same_author_must_do_entire_project']) ? $parameters['same_author_must_do_entire_project'] : '0',
@@ -956,6 +973,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 $parameters['quality'], 
                 $parameters['expertise'],
                 $parameters['translation_memory'],
+                $parameters['negotiated_contract'],
                 $parameters['specific_attachment'],
                 $parameters['priority'],
                 $parameters['same_author_must_do_entire_project']

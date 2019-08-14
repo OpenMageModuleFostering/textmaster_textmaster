@@ -142,6 +142,7 @@ jQueryOnLoad = function($){
 			expertise = $('#expertise').val();
 			service_level = $('#language_level').val();
             translation_memory = $('#translation_memory').val();
+            negotiated_contract = $('#negotiated_contract').val();
 			
 			$('#textmaster_projet').html($('#ctype option[value='+ctype+']').html());
 			
@@ -191,6 +192,11 @@ jQueryOnLoad = function($){
             if(translation_memory=='1'){
                 html_option += Translator.translate('Translation memory')+'<br/>';
                 base_price += translation_memory_price;
+            }
+            negotiated_contract_price = parseFloat(textmaster_negotiated_contract_prices[negotiated_contract]);
+            if(negotiated_contract != undefined && negotiated_contract != ''){
+                html_option += Translator.translate('Negotiated contract')+'<br/>';
+                base_price += negotiated_contract_price;
             }
 			/*if(specific_attachment=='1'){
 				html_option += 'Specific attachment<br/>';
@@ -279,7 +285,7 @@ jQueryOnLoad = function($){
 		
 		//updateDisplay();
 		
-		$('input[id^=attribute_],#ctype,#specific_attachment,#priority,#quality,#expertise,#language_level,#store_id_translation,#translation_memory').change(function(){
+		$('input[id^=attribute_],#ctype,#specific_attachment,#priority,#quality,#expertise,#language_level,#store_id_translation,#translation_memory,#negotiated_contract').change(function(){
 			updateDisplay();
 		});
 		store_id = $('#store_id_origin').val();
@@ -424,7 +430,6 @@ function documentSend (url){
 				method: 'get',
 				onSuccess: function(oXHR) {
 					if(oXHR.responseText.substr(0,4) != 'http'){
-                        console.log(oXHR.responseText);
                         if(oXHR.responseText == 'in_progress'){
     						html = '100% <span class="progress-cadre"><span class="progress" style="width:100%"></span></span>';
     						html += '<span class="message">'+message_loader_tm+'</span>';
