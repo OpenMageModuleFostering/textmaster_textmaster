@@ -182,15 +182,13 @@
 		$languagesSelect = array ();
 		$correspondances = array ();
 		$languagesSelect [''] = Mage::helper ( 'textmaster' )->__ ( 'Select a language' );
-		foreach ( $stores as $store ) {
-			
-		}
-		foreach ( $stores as $store ) {
-			$code = Mage::getStoreConfig('general/locale/code',$store->getId());
-			$local = explode('_',$code);
-			if(in_array($local[0],$used_language))
+		foreach($stores as $store) {
+			// $code = Mage::getStoreConfig('general/locale/code',$store->getId());
+			// $local = explode('_',$code);
+			$local = Mage::helper('textmaster')->getFormatedLangCode($store->getId());
+			if(in_array($local,$used_language))
 				$languagesSelect [$store->getId()] = $store->getWebsite()->getName().' - '.$store->getName();
-			$correspondances[$store->getId()] = $local[0];
+			$correspondances[$store->getId()] = $local;
 		}
 		
 		

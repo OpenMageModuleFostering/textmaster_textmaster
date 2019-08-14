@@ -38,6 +38,7 @@ class Textmaster_Textmaster_Adminhtml_AjaxController extends Mage_Adminhtml_Cont
 		Mage::getSingleton('adminhtml/session')->unsTextmasterPricings();
 		
 		$result = $_api->getAuth2Token($email,$password);
+		Mage::log($result);
 		$this->getResponse()->setHeader('Content-type', 'application/json');
 		
 		

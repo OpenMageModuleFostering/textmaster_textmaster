@@ -216,15 +216,14 @@
 					$params[$k]=$v;
 			}
 			$this->setTextmasterUser(Mage::getStoreConfig('textmaster/textmaster/api_key'));
-
-			$params['language_from'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_origin']),0,2);
+			// $params['language_from'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_origin']),0,2);
+			$params['language_from'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_origin']);
 		
 			if($params['ctype']!='translation')
 				$params['store_id_translation'] = $params['store_id_origin'];
-			
-			$params['language_to'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_translation']),0,2);
+			// $params['language_to'] = substr(Mage::getStoreConfig('general/locale/code',$params['store_id_translation']),0,2);
+			$params['language_to'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_translation']);
 		
-
 			/*if(!is_array($params['textmasters']) && !empty($params['textmasters']))
 				$params['textmasters'] = explode(',',$params['textmasters']);*/
 			$result = $this->_api->addProject($params);
@@ -245,8 +244,8 @@
 					if(gettype($v)!='object')
 						$params[$k]=$v;
 				}
-				$params['language_from'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_origin']),0,2);
-				$params['language_to'] 		= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_translation']),0,2);
+				$params['language_from'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_origin']);
+				$params['language_to'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_translation']);
 								
 				$result = $this->_api->updateProject($this->getProjectApiid(),$params);
 				if(!isset($result['error'])){					

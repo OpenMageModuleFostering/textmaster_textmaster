@@ -146,5 +146,13 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_api;
     }
 
-
+    /**
+     * Return formated language code like : fr-fr or en-us
+     * @param  $storeId Integer
+     * @return string
+     */
+    public function getFormatedLangCode($storeId)
+    {
+        return strtolower(str_replace('_', '-', Mage::getStoreConfig('general/locale/code',$storeId)));
+    }
 }

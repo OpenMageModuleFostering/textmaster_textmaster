@@ -204,7 +204,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         
         $info = curl_getinfo($curl);
 
-       Mage::log(Mage::helper('core')->jsonEncode($data),null,'textmaster.log');
+       // Mage::log(Mage::helper('core')->jsonEncode($data),null,'textmaster.log');
        //Mage::log($info,null,'textmaster.log');
         
         
@@ -295,7 +295,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
     public function getAuth2Token ($email, $password)
     {
         if (! function_exists('curl_init')) {
-            Throw new Exception('CURL non activé');
+            throw new Exception('CURL non activé');
             return false;
         }
         $uri = $this->getEuUri() . '/oauth/token';
@@ -303,6 +303,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                  "&user[password]={$password}" . "&client_id=" .
                  $this->getClientId() . "&client_secret=" .
                  $this->getClientSecret();
+
         
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -348,14 +349,19 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         }
     }
 
+//     Clé publique: 8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b
+//     Clé privée: 75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007
+
     public function getClientId ()
     {
         $sandbox = Mage::getConfig()->getNode('adminhtml/api/sandbox')->asArray();
         $staging = Mage::getConfig()->getNode('adminhtml/api/staging')->asArray();
         if ($sandbox) {
-            return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
+            return '8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b';
+            // return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
         } elseif ($staging) {
-            return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
+            return '8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b';
+            // return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
         } else {
             return '8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b';
         }
@@ -366,9 +372,11 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         $sandbox = Mage::getConfig()->getNode('adminhtml/api/sandbox')->asArray();
         $staging = Mage::getConfig()->getNode('adminhtml/api/staging')->asArray();
         if ($sandbox) {
-            return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
+            return '75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007';
+            // return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
         } elseif ($staging) {
-            return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
+            return '75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007';
+            // return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
         } else {
             return '75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007';
         }
@@ -376,7 +384,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
 
     public function getAPIKeys ($oAuthToken)
     {
-        Mage::log('getAPIKeys', null, 'textmaster.log');
+        // Mage::log('getAPIKeys', null, 'textmaster.log');
         $uri = $this->getApiUri() . '/admin/users/me';
         $header = array(
                 "Authorization: Bearer {$oAuthToken}"
@@ -444,7 +452,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $jData);
-        $response = curl_exec($curl);
+        
         try {
             return Mage::helper('core')->jsonDecode($response);
         } catch (Exception $e) {
@@ -881,7 +889,6 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                                                                        // the
                                                                        // default
                                                                        // values
-        
         $options = array(
                 'language_level' => $parameters['language_level'],
                 'quality' => $parameters['quality'],

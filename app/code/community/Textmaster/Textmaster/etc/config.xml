@@ -167,7 +167,7 @@
 					<nb>20</nb>
 				</send>
 			</documents>
-			<sandbox>0</sandbox>
+			<sandbox>1</sandbox>
 			<staging>0</staging>
 		</api>
 		<translate>
