@@ -40,7 +40,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Creation ex
 		$html .= "<script>
 		function createAjaxAction(){
 
-			var reloadurl = '". $this->getUrl('adminhtml/textmaster_ajax/create/')."';
+			var reloadurl = '". $this->getUrl('textmaster/adminhtml_ajax/create/')."';
 			new Ajax.Request(reloadurl, {
 				method: 'post',
 				parameters: {
@@ -60,7 +60,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Creation ex
 						$('result2_ajax').update(data.errors);
 					} else {
 						$('result2_ajax').update(data.html);
-						window.location = '".$this->getUrl('adminhtml/textmaster_project/index/')."';
+						window.location = '".$this->getUrl('textmaster/adminhtml_project/index/')."';
 					}
 				}
 			});

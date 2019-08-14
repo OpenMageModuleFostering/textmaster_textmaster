@@ -36,7 +36,7 @@
            	)
       	);
 		$fieldset = $form->addFieldset ( 'project_pricing', array (
-			'legend' => Mage::helper ( 'textmaster' )->__ ( 'Order Summary' )
+				'legend' => Mage::helper ( 'textmaster' )->__ ( 'Order Summary' )
 		) );
 		$projetField = $fieldset->addField ( 'projet', 'label', array(
 			'label' => Mage::helper ( 'textmaster' )->__ ('Project'),
@@ -45,7 +45,7 @@
 			'label' => Mage::helper ( 'textmaster' )->__ ('Word count'),
 		));
 		$optionsField = $fieldset->addField ( 'options', 'label', array(
-			'label' => Mage::helper ( 'textmaster' )->__ ('Level and options'),
+				'label' => Mage::helper ( 'textmaster' )->__ ('Level and options'),
 		));
 		
 		$pricingField = $fieldset->addField ( 'pricing', 'label', array(
@@ -53,9 +53,7 @@
 		));
 		
 		$pricing = $_api->getPricings();
-        $negotiatedContractPricing = Mage::helper('textmaster')->getNegotiatedContractsPricing();
 		$pricing = Mage::helper('core')->jsonEncode($pricing);
-        $negotiatedContractPrices = Mage::helper('core')->jsonEncode($negotiatedContractPricing);
 		$projetField->setAfterElementHtml('<span id="textmaster_projet"></span>');
 		$optionsField->setAfterElementHtml('<span id="textmaster_options"></span>');
 		$nbmotField->setAfterElementHtml('<span id="textmaster_nbmot"></span>');
@@ -63,7 +61,6 @@
 		<span id="textmaster_total_price"></span>
 		<script>
             var textmaster_pricing = '.$pricing.';
-            var textmaster_negotiated_contract_prices = '.$negotiatedContractPrices.';
 			var textmaster_edit_form_url = \''.$this->getUrl('*/*/edit', array('step' => 2)).'\';
         </script>');
       	$form->setUseContainer(true);

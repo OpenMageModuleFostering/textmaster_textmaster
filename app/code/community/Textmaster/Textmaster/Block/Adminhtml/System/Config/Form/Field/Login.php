@@ -33,19 +33,19 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Login exten
 		
 		if(!$_isLog){
 	
-			$html  = '<input type="text" placeholder="'.Mage::helper('textmaster')->__('Login').'" name="login" id="textmaster_textmaster_login" class="login input-text" /><span style="margin-left:10px;"></span>';
-			$html .= '<input type="password" placeholder="'.Mage::helper('textmaster')->__('Password').'" name="password" id="textmaster_textmaster_password" class="login input-text" /><span style="margin-left:10px;"></span>';
+			$html  = '<input type="text" placeholder="'.Mage::helper('textmaster')->__('Login').'" name="login" id="login" class="login" /><span style="margin-left:10px;"></span>';
+			$html .= '<input type="password" placeholder="'.Mage::helper('textmaster')->__('Password').'" name="password" id="password" class="login" /><span style="margin-left:10px;"></span>';
 			$html .= '<button type="button" style="margin-top:5px;" class="scalable generate_key" onclick="loginAjaxAction()"><span>'.Mage::helper('textmaster')->__('Connexion').'</span></button>';
 			$html .= '<div id="result_ajax" style="margin-top:7px;"></div>';
 			$html .= "<script>			
 			function loginAjaxAction(){
 	
-				var reloadurl = '". $this->getUrl('adminhtml/textmaster_ajax/login/')."';
+				var reloadurl = '". $this->getUrl('textmaster/adminhtml_ajax/login/')."';
 				new Ajax.Request(reloadurl, {
 					method: 'post',
 					parameters: {
-						login : \$F('textmaster_textmaster_login'),
-						password: \$F('textmaster_textmaster_password'),
+						login : \$F('login'),
+						password: \$F('password'),
 					},
 					requestHeaders: {Accept: 'application/json'},
 		            
@@ -60,7 +60,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Login exten
 							$('result_ajax').update(data.errors);
 						} else {						
 							$('result_ajax').update(data.html);
-							window.location = '".$this->getUrl('adminhtml/textmaster_project/index/')."';
+							window.location = '".$this->getUrl('textmaster/adminhtml_project/index/')."';
 						}
 					}
 				});
@@ -73,7 +73,7 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Login exten
 			$html .= "<script>
 			function logoutAjaxAction(){
 			
-				var reloadurl = '". $this->getUrl('adminhtml/textmaster_ajax/logout/')."';
+				var reloadurl = '". $this->getUrl('textmaster/adminhtml_ajax/logout/')."';
 				new Ajax.Request(reloadurl, {
 					method: 'post',				
 					requestHeaders: {Accept: 'application/json'},

@@ -30,7 +30,6 @@
     	$this->loadLayout();     
   		$this->renderLayout();
     }
-
     public function documentcountAction()
     {
     	$params = $this->getRequest()->getParams();
@@ -65,7 +64,6 @@
     	$this->loadLayout();
     	$this->renderLayout();
     }
-
     public function documentcompleteAction()
     {
         $params = $this->getRequest()->getParams();
@@ -87,28 +85,6 @@
         $this->loadLayout();
         $this->renderLayout();
     }
-
-    public function projecttmcompleteAction()
-    {
-        $params = $this->getRequest()->getParams();
-        $postData = $this->getRequest()->getPost();
-
-        $postData = json_decode(file_get_contents('php://input'));
-        // recupere les données poster en JSON
-        Mage::log('Callback projecttmcompleted '.(isset($postData->id) ? $postData->id : 'id inconnu'), null, 'textmaster.log');
-
-        if(is_object($postData) && isset($postData->id)) {
-            $project = Mage::getModel('textmaster/project')->getCollection()->addFieldToFilter('project_apiid', $postData->id)->getFirstItem();
-            if($project->getId()) {
-                $project->setTranslationMemoryStatus(Textmaster_Textmaster_Model_Project::PROJECT_TM_STATUS_COMPLETED);
-                $project->setHasChangeMemoryStatus(true);
-                $project->save();
-            }
-        }
-        $this->loadLayout();
-        $this->renderLayout();        
-    }
-
     public function inprogressAction(){
     	$postData = json_decode(file_get_contents('php://input'));
     	Mage::log('CALLBACK IN PROGRESS',null,'textmaster.log');

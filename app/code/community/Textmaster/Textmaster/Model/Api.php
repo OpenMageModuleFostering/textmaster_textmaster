@@ -44,8 +44,6 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
 
     protected $_users_me = false;
 
-    protected $_negotiated_contracts = array();
-
     const TEXTMASTER_API_VERSION = 'v1';
 
     const TEXTMASTER_PROD_API_URI = 'http://api.textmaster.com';
@@ -203,11 +201,11 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         Mage::log(
                 'Log API ' . $method . ' ' . $name . ' : ' .
                          ($finlog - $debutlog), null, 'textmaster.log');
+        
         $info = curl_getinfo($curl);
 
-       // Mage::log(Mage::helper('core')->jsonEncode($data),null,'textmaster.log');
-       // Mage::log($info,null,'textmaster.log');
-       // Mage::log($result,null,'textmaster.log');
+       Mage::log(Mage::helper('core')->jsonEncode($data),null,'textmaster.log');
+       //Mage::log($info,null,'textmaster.log');
         
         
         if ($info['http_code'] == '500') {
@@ -297,7 +295,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
     public function getAuth2Token ($email, $password)
     {
         if (! function_exists('curl_init')) {
-            throw new Exception('CURL non activé');
+            Throw new Exception('CURL non activé');
             return false;
         }
         $uri = $this->getEuUri() . '/oauth/token';
@@ -305,7 +303,6 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                  "&user[password]={$password}" . "&client_id=" .
                  $this->getClientId() . "&client_secret=" .
                  $this->getClientSecret();
-
         
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -351,19 +348,14 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         }
     }
 
-//     Clé publique: 8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b
-//     Clé privée: 75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007
-
     public function getClientId ()
     {
         $sandbox = Mage::getConfig()->getNode('adminhtml/api/sandbox')->asArray();
         $staging = Mage::getConfig()->getNode('adminhtml/api/staging')->asArray();
         if ($sandbox) {
-            return '8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b';
-            // return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
+            return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
         } elseif ($staging) {
-            return '8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b';
-            // return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
+            return '97ff3df474ff8776e346e38e322ab2300e96429a4efc88c305078a6213902f21';
         } else {
             return '8de45500fd370ed35c0269749ebb872149f8929d0d78cc5b5016bcd584c9058b';
         }
@@ -374,11 +366,9 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         $sandbox = Mage::getConfig()->getNode('adminhtml/api/sandbox')->asArray();
         $staging = Mage::getConfig()->getNode('adminhtml/api/staging')->asArray();
         if ($sandbox) {
-            return '75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007';
-            // return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
+            return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
         } elseif ($staging) {
-            return '75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007';
-            // return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
+            return 'f089333f59275789afc763e60d436fdd740a03f07fe168bf5569ebed0380b6a6';
         } else {
             return '75324f2849b25c7112d374a1a51a8b442220726639d64583196a7c2385227007';
         }
@@ -386,7 +376,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
 
     public function getAPIKeys ($oAuthToken)
     {
-        // Mage::log('getAPIKeys', null, 'textmaster.log');
+        Mage::log('getAPIKeys', null, 'textmaster.log');
         $uri = $this->getApiUri() . '/admin/users/me';
         $header = array(
                 "Authorization: Bearer {$oAuthToken}"
@@ -454,7 +444,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $jData);
-        
+        $response = curl_exec($curl);
         try {
             return Mage::helper('core')->jsonDecode($response);
         } catch (Exception $e) {
@@ -668,8 +658,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         /* put service levels into array */
         $this->_service_levels = array(
                 'regular' => Mage::helper('textmaster')->__('Regular'),
-                'premium' => Mage::helper('textmaster')->__('Premium'),
-                'enterprise' => Mage::helper('textmaster')->__('Enterprise')
+                'premium' => Mage::helper('textmaster')->__('Premium')
         );
         return $this->_service_levels;
     }
@@ -805,16 +794,6 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         return $audience;
     }
 
-    public function getNegotiatedContracts(){
-        if($this->_negotiated_contracts)
-            return $this->_negotiated_contracts;
-
-        $negotiatedContracts = $this->_request("negotiated_contracts?per_page=100", false, true);
-        $this->_negotiated_contracts = $negotiatedContracts;
-
-        return $negotiatedContracts;
-    }
-
     public function getPricings ($word_count = 1)
     {
         if ($this->_prices)
@@ -885,7 +864,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 'same_author_must_do_entire_project' => 'true',
                 'language_level' => 'regular',
                 'quality' => 'false',
-                #'expertise' => 'false',
+                'expertise' => 'false',
                 'vocabulary_type' => Mage::getStoreConfig(
                         'textmaster/defaultvalue/type_vocabulary'),
                 'grammatical_person' => Mage::getStoreConfig(
@@ -902,28 +881,20 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                                                                        // the
                                                                        // default
                                                                        // values
+        
         $options = array(
-            'language_level'      => $parameters['language_level'],
-            'quality'             => isset($parameters['quality']) ? $parameters['quality'] : '0',
-            'translation_memory'  => isset($parameters['translation_memory']) ? $parameters['translation_memory'] : '0',
-            'negotiated_contract' => isset($parameters['negotiated_contract']) ? $parameters['negotiated_contract'] : '',
-            'specific_attachment' => isset($parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
-            'priority'            => isset($parameters['priority']) ? $parameters['priority'] : '0',
-            'uniq_author'         => isset($parameters['same_author_must_do_entire_project']) ? $parameters['same_author_must_do_entire_project'] : '0'
+                'language_level' => $parameters['language_level'],
+                'quality' => $parameters['quality'],
+                'expertise' => $parameters['expertise'],
+                'specific_attachment' => isset(
+                        $parameters['specific_attachment']) ? $parameters['specific_attachment'] : 'false',
+                'priority' => $parameters['priority']
         );
         
-        unset($parameters['language_level'],
-                $parameters['quality'], 
-                $parameters['expertise'],
-                $parameters['translation_memory'],
-                $parameters['negotiated_contract'],
-                $parameters['specific_attachment'],
-                $parameters['priority'],
-                $parameters['same_author_must_do_entire_project']
-        );
+        unset($parameters['language_level'], $parameters['quality'], 
+                $parameters['expertise']);
         
         $parameters['options'] = $options;
-
         
         if (isset($parameters['textmasters'])) {
             if (is_array($parameters['textmasters']) &&
@@ -932,22 +903,12 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
             if (! is_array($parameters['textmasters']))
                 unset($parameters['textmasters']);
         }
-
-        $parameters['callback'] = array(
-                'project_tm_completed' => array(
-                        'url' => Mage::helper('textmaster')->getCallbackUrlTmComplete(),
-                        'format' => 'json'
-                )
-        );
-
-        // Mage::log($parameters);
         
         $data = array(
                 'project' => $parameters,
                 'tracker' => self::TEXTMASTER_TRACKER_ID
         );
         
-
         if ($quotation)
             return $this->_post('projects/quotation', $data, 'get');
         return $this->_post('projects', $data);
@@ -960,25 +921,15 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 unset($parameters[$field]);
         }
         $options = array(
-                'language_level'      => $parameters['language_level'],
-                'quality'             => isset($parameters['quality']) ? $parameters['quality'] : '0',
-                'translation_memory'  => isset($parameters['translation_memory']) ? $parameters['translation_memory'] : '0',
-                'negotiated_contract'  => isset($parameters['negotiated_contract']) ? $parameters['negotiated_contract'] : '',
-                'specific_attachment' => isset($parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
-                'priority'            => isset($parameters['priority']) ? $parameters['priority'] : '0',
-                'uniq_author'         => isset($parameters['same_author_must_do_entire_project']) ? $parameters['same_author_must_do_entire_project'] : '0',
-                // 'expertise' => isset($parameters['expertise']) ? $parameters['expertise'] : '0',
+                'language_level' => $parameters['language_level'],
+                'quality' => isset($parameters['quality']) ? $parameters['quality'] : '0',
+                'expertise' => isset($parameters['expertise']) ? $parameters['expertise'] : '0',
+                'specific_attachment' => isset(
+                        $parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
+                'priority' => isset($parameters['priority']) ? $parameters['priority'] : '0'
         );
-        unset($parameters['language_level'],
-                $parameters['quality'], 
-                $parameters['expertise'],
-                $parameters['translation_memory'],
-                $parameters['negotiated_contract'],
-                $parameters['specific_attachment'],
-                $parameters['priority'],
-                $parameters['same_author_must_do_entire_project']
-        );
-
+        unset($parameters['language_level'], $parameters['quality'], 
+                $parameters['expertise']);
         $parameters['options'] = $options;
         if (isset($parameters['textmasters']) && ((is_array(
                 $parameters['textmasters']) &&
@@ -986,15 +937,10 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                  ! is_array($parameters['textmasters']))) {
             unset($parameters['textmasters']);
         }
-
         $parameters['callback'] = array(
                 'project_in_progress' => array(
                         'url' => Mage::helper('textmaster')->getCallbackUrlInProgress(),
                         "format" => "json"
-                ),
-                'project_tm_completed' => array(
-                        'url' => Mage::helper('textmaster')->getCallbackUrlTmComplete(),
-                        'format' => 'json'
                 )
         );
         

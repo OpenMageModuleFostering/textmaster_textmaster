@@ -26,24 +26,20 @@
  class Textmaster_Textmaster_Model_Project extends Mage_Core_Model_Abstract {
 	
 	
-    const PROJECT_CTYPE_COPYWRITING  = "copywriting";
-    const PROJECT_CTYPE_TRANSLATION  = "translation";
-    const PROJECT_CTYPE_PROOFREADING = "proofreading";
+	const PROJECT_CTYPE_COPYWRITING = "copywriting";
+	const PROJECT_CTYPE_TRANSLATION = "translation";
+	const PROJECT_CTYPE_PROOFREADING = "proofreading";
 	
-    const PROJECT_LANGUAGE_LEVEL_REGULAR    = "regular";
-    const PROJECT_LANGUAGE_LEVEL_PREMIUM    = "premium";
-    const PROJECT_LANGUAGE_LEVEL_ENTERPRISE = "enterprise";
+	const PROJECT_LANGUAGE_LEVEL_REGULAR = "regular";
+	const PROJECT_LANGUAGE_LEVEL_PREMIUM = "premium";
 	
-    const PROJECT_STATUS_IN_LAUNCH_PROCESSING = "in_launch_processing";
-    const PROJECT_STATUS_IN_CREATION          = "in_creation";
-    const PROJECT_STATUS_IN_PROGRESS          = "in_progress";
-    const PROJECT_STATUS_IN_REVIEW            = "in_review";
-    const PROJECT_STATUS_CANCEL               = "canceled";
-    const PROJECT_STATUS_COMPLETED            = "completed";
-    const PROJECT_STATUS_PAUSED               = "paused";
-
-    const PROJECT_TM_STATUS_IN_PROGRESS = "in_progress";
-    const PROJECT_TM_STATUS_COMPLETED   = "completed";
+	const PROJECT_STATUS_IN_LAUNCH_PROCESSING = "in_launch_processing";
+	const PROJECT_STATUS_IN_CREATION = "in_creation";
+	const PROJECT_STATUS_IN_PROGRESS = "in_progress";
+	const PROJECT_STATUS_IN_REVIEW 	 = "in_review";
+	const PROJECT_STATUS_CANCEL 	 = "canceled";
+	const PROJECT_STATUS_COMPLETED 	 = "completed";
+	const PROJECT_STATUS_PAUSED 	 = "paused";
 	
 	private $_store_name_origin = false;
 	private $_store_name_translation = false;
@@ -116,7 +112,7 @@
 		return $this->_store_name_translation;*/
 	}
 	
-	public function load($id, $field = null, $api = true) {
+	public function load($id, $field = null,$api = true) {
 	    $this->_load_api = $api;
 	   
 		$return = parent::load ( $id, $field = null );
@@ -135,18 +131,19 @@
 		if($api && $this->getProjectApiid() && !$this->project_loaded) {
 			$data_api = Mage::helper('textmaster')->getApi()->getProject($this->getProjectApiid());
 			//Mage::log ( $data_api,null,'textmaster.log' );
-            if(!isset($data_api['error'])){
-                $this->project_loaded = true;
-                if(isset($data_api['options']['language_level']))
-                    $this->setLanguageLevel($data_api['option_values']['language_level']);
-                else 
-                    $this->setLanguageLevel('regular');
-                if(isset($data_api['reference']))
-                    $this->setReference( $data_api['reference'] );
-                
-                $this->setCategory($data_api['category']);
-                $this->setCtype($data_api['ctype']);
-                $this->setTemplate($data_api['work_template']['name']);
+			if(!isset($data_api['error'])){
+				$this->project_loaded = true;
+				
+				if(isset($data_api['options']['language_level']))
+					$this->setLanguageLevel($data_api['options']['language_level']);
+				else 
+					$this->setLanguageLevel('regular');
+				if(isset($data_api['reference']))
+					$this->setReference( $data_api['reference'] );
+				
+				$this->setCategory($data_api['category']);
+				$this->setCtype($data_api['ctype']);
+				$this->setTemplate($data_api['work_template']['name']);
 				$this->setSameAuthorMustDoEntireProject($data_api['same_author_must_do_entire_project']);
 				$this->setVocabularyType($data_api['vocabulary_type']);
 				$this->setGrammaticalPerson($data_api['grammatical_person']);
@@ -156,7 +153,7 @@
 				$this->setProjectBriefing($data_api['project_briefing']);
 				
 				if(isset($data_api['options']['specific_attachment']))
-					$this->setSpecificAttachment($data_api['option_values']['specific_attachment']);
+					$this->setSpecificAttachment($data_api['options']['specific_attachment']);
 				else 
 					$this->setSpecificAttachment(0);
 				
@@ -170,25 +167,20 @@
 					$this->setPrice(0);								
 				}
 				if(isset($data_api['options']['priority']))
-					$this->setPriority($data_api['option_values']['priority']);
+					$this->setPriority($data_api['options']['priority']);
 				else {
 					$this->setPriority(0);
 				}
 				if(isset($data_api['options']['quality']))
-					$this->setQuality($data_api['option_values']['quality']);
+					$this->setQuality($data_api['options']['quality']);
 				else {
 					$this->setQuality(0);
 				}
 				if(isset($data_api['options']['expertise']))
-					$this->setExpertise($data_api['option_values']['expertise']);
+					$this->setExpertise($data_api['options']['expertise']);
 				else {
 					$this->setExpertise(0);
 				}
-                if(isset($data_api['options']['translation_memory']))
-                    $this->setTranslationMemory($data_api['option_values']['translation_memory']);
-                if(isset($data_api['options']['negotiated_contract']))
-                    $this->setNegotiatedContract($data_api['option_values']['negotiated_contract']);
-                
 				//TODO 
 				$this->setIsmytextmaster(0);
 				$this->setTextmasters($data_api['textmasters']);
@@ -199,42 +191,39 @@
 		}		
 		return $return;
 	}
-    
-    protected function _beforeSave(){
-        if(!$this->_before_save_api){
-            return parent::_beforeSave();
-        }
-        if (! $this->_api_loaded) {
-            $this->_api = Mage::helper('textmaster')->getApi();
-        }
-        $data = $this->getData();
-        /*if(isset($data['textmasters']) && isset($data['textmasters'][0]) && !strpos($data['textmasters'][0],',')!==false){
-            $data['textmasters'] = explode(',',$data['textmasters'][0]);
-            
-        }*/
-        if(isset($data['textmasters']) && is_array($data['textmasters']))
-          $this->setTextmasters(serialize($data['textmasters']));
-            
-        //Create
-        if(!$this->getId()){
-                            
-            //unset($params['_documents']);
-            foreach($data as $k=>$v){
-                if(gettype($v)!='object')
-                    $params[$k]=$v;
-            }
-            $this->setTextmasterUser(Mage::getStoreConfig('textmaster/textmaster/api_key'));
-            // $params['language_from']     = substr(Mage::getStoreConfig('general/locale/code',$params['store_id_origin']),0,2);
-            $params['language_from'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_origin']);
-        
-            if($params['ctype']!='translation')
-                $params['store_id_translation'] = $params['store_id_origin'];
-            // $params['language_to'] = substr(Mage::getStoreConfig('general/locale/code',$params['store_id_translation']),0,2);
-            $params['language_to'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_translation']);
+	
+	protected function _beforeSave(){
+		if(!$this->_before_save_api){
+			return parent::_beforeSave();
+		}
+		if (! $this->_api_loaded) {
+			$this->_api = Mage::helper('textmaster')->getApi();
+		}
+		$data = $this->getData();
+		/*if(isset($data['textmasters']) && isset($data['textmasters'][0]) && !strpos($data['textmasters'][0],',')!==false){
+			$data['textmasters'] = explode(',',$data['textmasters'][0]);
+			
+		}*/
+		if(isset($data['textmasters']) && is_array($data['textmasters']))
+		  $this->setTextmasters(serialize($data['textmasters']));
+			
+		//Creation
+		if(!$this->getId()){
+							
+			//unset($params['_documents']);
+			foreach($data as $k=>$v){
+				if(gettype($v)!='object')
+					$params[$k]=$v;
+			}
+			$this->setTextmasterUser(Mage::getStoreConfig('textmaster/textmaster/api_key'));
 
-            //Unset translation_memory from params data when create project
-            if(isset($params['translation_memory']))
-                unset($params['translation_memory']);
+			$params['language_from'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_origin']),0,2);
+		
+			if($params['ctype']!='translation')
+				$params['store_id_translation'] = $params['store_id_origin'];
+			
+			$params['language_to'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_translation']),0,2);
+		
 
 			/*if(!is_array($params['textmasters']) && !empty($params['textmasters']))
 				$params['textmasters'] = explode(',',$params['textmasters']);*/
@@ -248,7 +237,7 @@
 			
 				
 		} else {
-			if($this->getStatus()==self::PROJECT_STATUS_IN_CREATION && !$this->getHasChangeMemoryStatus()){
+			if($this->getStatus()==self::PROJECT_STATUS_IN_CREATION){
 				//$data = $this->getData();
 						
 				//unset($params['_documents']);
@@ -256,12 +245,8 @@
 					if(gettype($v)!='object')
 						$params[$k]=$v;
 				}
-				$params['language_from'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_origin']);
-				$params['language_to'] = Mage::helper('textmaster')->getFormatedLangCode($params['store_id_translation']);
-
-                //Unset translation_memory from params data when create project
-                if(isset($params['translation_memory']))
-                    unset($params['translation_memory']);
+				$params['language_from'] 	= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_origin']),0,2);
+				$params['language_to'] 		= substr(Mage::getStoreConfig('general/locale/code',$params['store_id_translation']),0,2);
 								
 				$result = $this->_api->updateProject($this->getProjectApiid(),$params);
 				if(!isset($result['error'])){					
@@ -274,33 +259,6 @@
 		
 		return parent::_beforeSave();
 	}
-
-    public function startTranslationMemory(){
-        if(
-            $this->getStatus() == self::PROJECT_STATUS_IN_CREATION
-            && $this->getTranslationMemory()
-            && $this->getTranslationMemoryStatus() == ''
-        ){
-            if(!$this->_api_loaded) {
-                $this->_api = Mage::helper('textmaster')->getApi();
-            }
-            $this->setTranslationMemoryStatus(self::PROJECT_TM_STATUS_IN_PROGRESS);
-            $this->setHasChangeMemoryStatus(true);
-            $params['translation_memory'] = $this->getTranslationMemory();
-            $params['language_level'] = $this->getLanguageLevel();
-            $params['quality'] = $this->getQuantity();
-            $params['specific_attachment'] = $this->getSpecificAttachment();
-            $params['priority'] = $this->getPriority();
-            $params['same_author_must_do_entire_project'] = $this->getSameAuthorMustDoEntireProject();
-            $result = $this->_api->updateProject($this->getProjectApiid(), $params);
-            if(!isset($result['error'])){
-                $this->setStatus($result['status']);
-                $this->save();
-            } else {
-                throw new Exception($result['error']);
-            }
-        }
-    }
 	
 	public function getStatusTexte(){
 		//Mage::
@@ -337,7 +295,7 @@
 	
 	public function getPrice(){
 		$currency = Mage::getModel('directory/currency')->load($this->getCurrency());
-		return $currency->format($this->getData('price')/1000,array(),false);
+		return $currency->format($this->getData('price'),array(),false);
 	}
 	
 	public function getVocabularyTypeTexte(){
@@ -462,33 +420,6 @@
 	    
 	    return $this->_documents_send_notcompleted;
 	}
-    public function getDocumentsCounted(){
-        if(isset($this->_documents_completed)) return $this->_documents_completed;
-        $this->_documents_completed = Mage::getModel('textmaster/document')->getCollection()->setLoadApi($this->_api_loaded)
-            ->addFieldToFilter('textmaster_project_id',$this->getTextmasterProjectId())
-            ->addFieldToFilter('counted',1);
-        foreach($this->_documents_completed as $doc){
-            $doc->setProject($this);
-        }
-        
-        return $this->_documents_completed;
-    }
-    public function getLocalWordCount(){
-        $docs = $this->getDocumentsCounted();
-        $totalWordCount = 0;
-        foreach ($docs as $doc) {
-            $data = $doc->prepareData();
-            $totalWordCount += $data['word_count'];
-        }
-        return $totalWordCount;
-    }
-    public function getDiffWordCount(){
-        $externalWordCount = $this->getTotalWordCount();
-        $localWordCount = $this->getLocalWordCount();
-        if(($externalWordCount >= $localWordCount) or $localWordCount == 0)
-            return 0;
-        return $localWordCount-$externalWordCount;
-    }
 	public function sendDocuments(){
 		if($this->hasDocumentsNotSend()){
 			$nbDocumentToSend = Mage::getConfig()->getNode('adminhtml/api/documents/send/nb')->asArray();			
@@ -630,7 +561,7 @@
 			    Mage::getSingleton('adminhtml/session')->unsTextmasterUserInfos();
 				$this->setStatus(self::PROJECT_STATUS_IN_LAUNCH_PROCESSING);
 				$this->save();				
-				Mage::getSingleton('adminhtml/session')->addSuccess($this->getName().' '.Mage::helper('textmaster')->__('launched'));
+				Mage::getSingleton('adminhtml/session')->addSuccess($this->getName().' '.Mage::helper('textmaster')->__('launch'));
 				return true;
 			} else {
 				Mage::getSingleton('adminhtml/session')->addError($this->getName().' '.$result['error']);
@@ -796,7 +727,7 @@
 	        $this->setCurrency($data['cost_in_currency']['currency']);
 	    }
 	    if(isset($data['progress']))
-	        $this->setProgression(round((float)($data['progress']*100),0).'%');
+	        $this->setProgression(round((float)$data['progress'],0).'%');
 	    else $this->setProgression('0%');
 
 	    if(isset($data['options']['language_level']))

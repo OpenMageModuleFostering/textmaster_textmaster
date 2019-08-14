@@ -38,13 +38,8 @@
     <textmaster_word translate="message" module="textmaster">
         <message>word</message>
     </textmaster_word>
-    <textmaster_worth translate="message" module="textmaster">
-        <message>worth</message>
-    </textmaster_worth>
-    <textmaster_translation_memory translate="message" module="textmaster">
-        <message>Translation memory</message>
-    </textmaster_translation_memory>
-    <textmaster_negotiated_contract translate="message" module="textmaster">
-        <message>Negotiated contract</message>
-    </textmaster_negotiated_contract>
+    <textmaster_word translate="message" module="textmaster">
+        <message>word</message>
+    </textmaster_word>
+    
 </jstranslator>

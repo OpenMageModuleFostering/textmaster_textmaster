@@ -22,7 +22,7 @@ Duplicate,Duplicate
 Continue,Continue
 Update product,Update product
 Type,Type
-Missing translation:,Missing translation:
+Traduction manquante :,Missing translation
 Traduction existante,Existing translation
 Project,Project
 Fields to translate,Fields to translate
@@ -121,6 +121,7 @@ launch,Order
 paused,paused
 resumed,resumed
 canceled,canceled
+soit,
 word,word
 You need to be logged in to use this plugin.,You need to be logged in to use this plugin.
 Click here to log in or to create a TextMaster account.,Click here to log in or to create a TextMaster account.
@@ -192,4 +193,3 @@ Connexion,Log in
 Login,Login
 Searching...,Searching...
 Logout,Logout
-"message_loader_tm","The translation memory is in progress. This will take a few minutes if you have many product descriptions. You can use Magento in the meantime and then come back to your project to finish it."

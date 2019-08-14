@@ -3,10 +3,10 @@
     "type": "magento-module",
     "license": "Open-Software-License",
     "homepage": "",
-    "description": "Get your product descriptions translated or corrected by professionals directly through Magento.",
+    "description": "Get your product descriptions translated or corrected by professionals directly through Magento. ",
     "authors": [
     {
-        "name": "Textmaster",
+        "name": "TextMaster",
         "email": "elizaveta@textmaster.com"
     }
 ],

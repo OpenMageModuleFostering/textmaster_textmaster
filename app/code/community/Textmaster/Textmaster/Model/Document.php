@@ -166,20 +166,15 @@
 		$attributes = Mage::getModel ( 'textmaster/project_attribute' )->getCollection ()->addFieldToFilter ( 'textmaster_project_id', $this->getTextmasterProjectId () );
 		$product = Mage::getModel ( 'catalog/product' )->setStoreId( $this->getProject()->getStoreIdOrigin() )->load ( $this->getProductId () );
 		$data ['original_content'] = array ();
-        $data['markup_in_content'] = false;
 		$text = '';
 		foreach ( $attributes as $attr ) {
 			$attribute = Mage::getModel ( 'catalog/resource_eav_attribute' )->load ( $attr->getTextmasterAttributeId () );
 			$text_attr = $product->getData ( $attribute->getName () );			
 			$text .= $text_attr . ' ';
-			if (! empty ( $text_attr )){
+			if (! empty ( $text_attr ))
 				$data ['original_content'] [$attribute->getName ()] = array (
 						'original_phrase' => $text_attr
 				);
-                if(strip_tags($text_attr) != $text_attr){
-                    $data['markup_in_content'] = true;
-                }
-            }
 		}
 			
 		$data ['word_count'] = Mage::helper ( 'textmaster' )->countWord ( $text );
@@ -199,7 +194,6 @@
 		unset ( $data ['created_at'] );
 		unset ( $data ['document_api_id'] );
 		unset ( $data ['original_content'] ['image'] );
-
 		return $data;
 	}
 	

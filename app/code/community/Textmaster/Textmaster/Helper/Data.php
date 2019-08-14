@@ -43,21 +43,18 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
 
     private $_api = false;
 
-    #project_tm_completed callback lancer launch project
-
     public function countWord ($txt)
     {
-        $string = strip_tags($txt);
-        $string = str_replace("&#039;", "'", $string);
-        $t = array(' ', "\t", '=', '+', '-', '*', '/', '\\', ',', '.', ';', ':', '[', ']', '{', '}', '(', ')', '<', '>', '&', '%', '$', '@', '#', '^', '!', '?', '~'); // separators
-        $string = str_replace($t, " ", $string);
-        $string = trim(preg_replace("/\s+/", " ", $string));
-        $num = 0;
-        if (mb_strlen($string, "UTF-8") > 0) {
-            $word_array = explode(" ", $string);
-            $num = count($word_array);
+        $txt = utf8_decode($txt);
+        $aMots = str_word_count($txt, 1, 
+                utf8_decode(
+                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ'));
+        foreach ($aMots as &$sMot) {
+            if (in_array($sMot, $this->_mot_exclus)) {
+                unset($sMot);
+            }
         }
-        return $num;
+        return count($aMots);
     }
 
     public function arrayToStringForApi ($arr)
@@ -114,14 +111,10 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
     }
     
     public function getCallbackCompletedUrl ()
-    {
-        return Mage::getUrl('textmaster/callback/documentcomplete');
+    {return Mage::getUrl('textmaster/callback/documentcomplete');
+        
     }
     
-    public function getCallbackUrlTmComplete()
-    {
-        return Mage::getUrl('textmaster/callback/projecttmcomplete');
-    }
 
     public function getCallbackUrlInProgress ()
     {
@@ -153,58 +146,5 @@ class Textmaster_Textmaster_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_api;
     }
 
-    /**
-     * Return formated language code like : fr-fr or en-us
-     * @param  $storeId Integer
-     * @return string
-     */
-    public function getFormatedLangCode($storeId)
-    {
-        return strtolower(str_replace('_', '-', Mage::getStoreConfig('general/locale/code',$storeId)));
-    }
 
-    /**
-     * Return true if translation memory is enable and with have 5% diff word count
-     * @param  $project
-     * @return boolean
-     */
-    public function showProjectDiffWordCount($project){
-        $totalWordCount = $project->getTotalWordCount();
-        if(!$project->getTranslationMemory() or $totalWordCount == 0)
-            return false;
-        $diffWordCount = $project->getDiffWordCount();
-        if((($diffWordCount*100)/$totalWordCount) >= 5)
-            return true;
-        return false;
-    }
-
-    public function getNegotiatedContracts(){
-        $negotiatedContracts = Mage::getModel('textmaster/api')->getNegotiatedContracts();
-        $negotiatedContracts = $negotiatedContracts['negotiated_contracts'];
-        return $negotiatedContracts;
-    }
-
-    public function getNegotiatedContractsFormated(){
-        $negotiatedContracts = $this->getNegotiatedContracts();
-        $negotiatedContractsField = array('' => $this->__('No contract selected'));
-        $currencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
-        $currencySymbol = Mage::app()->getLocale()->currency($currencyCode)->getSymbol();
-        $symbol = '';
-        foreach ($negotiatedContracts as $negotiatedContract) {
-            if($negotiatedContract['client_pricing_in_locale'] > 0)
-                $symbol = '+';
-            $price = $symbol.$negotiatedContract['client_pricing_in_locale'].$currencySymbol;
-            $negotiatedContractsField[$negotiatedContract['id']] = $negotiatedContract['name'].' '.$this->__('(%s/word)', $price, array(), false);
-        }
-        return $negotiatedContractsField;
-    }
-
-    public function getNegotiatedContractsPricing(){
-        $negotiatedContracts = $this->getNegotiatedContracts();
-        $negotiatedContractsPrices = array();
-        foreach ($negotiatedContracts as $negotiatedContract) {
-            $negotiatedContractsPrices[$negotiatedContract['id']] = $negotiatedContract['client_pricing_in_locale'];
-        }
-        return $negotiatedContractsPrices;
-    }
 }

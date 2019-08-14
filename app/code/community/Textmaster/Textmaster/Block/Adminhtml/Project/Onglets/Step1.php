@@ -203,7 +203,7 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step1 extends Mage_A
 
 		$aOptions = Mage::getModel('core/store')->getCollection()->toOptionHash();
 		foreach ($aOptions as $k=> $aOption){
-			$aOptions[$k] = Mage::helper('catalog')->__('Missing translation: ').$aOption;
+			$aOptions[$k] = Mage::helper('catalog')->__('Traduction manquante : ').$aOption;
 		}
 		$this->addColumn('translation',
 				array(

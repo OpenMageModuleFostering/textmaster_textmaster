@@ -52,6 +52,8 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		
 		$word_count = Mage::getSingleton('core/session')->getWordCount();
 		
+		
+		
 		$fieldset = $form->addFieldset ( 'project_information', array (
 				'legend' => Mage::helper ( 'textmaster' )->__ ( 'Project Summary' )
 		) );
@@ -64,13 +66,6 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		$fieldset->addField ( 'total_word_count', 'label', array (
 				'label' => Mage::helper ( 'textmaster' )->__ ( 'Total word count' ),				
 		));
-
-        if (Mage::helper('textmaster')->showProjectDiffWordCount($this->getProject())){
-            $fieldset->addField ('total_word_count_saved', 'label', array (
-                    'label' => Mage::helper ( 'textmaster' )->__ ( 'Total word count saved' ),
-                    'value' => $this->getProject()->getDiffWordCount()
-            ));
-        }
 		
 		$optionsField = $fieldset->addField ( 'options', 'label', array(
 				'label' => Mage::helper ( 'textmaster' )->__ ( 'Level and options' ),
@@ -116,67 +111,55 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
 		$this->setFormValues();
 				
 		return parent::_prepareForm ();
-    }
-    
-    public function setFormValues(){
-        $_api = Mage::helper('textmaster')->getApi();
-        
-        $post = $this->getProject()->getData();
-        
-        $store_from = Mage::getModel('core/store')->load($post['store_id_origin']);
-        $store_to = Mage::getModel('core/store')->load($post['store_id_translation']);
-        $post['ctype']                  = ucfirst($post['ctype']);
-        $post['store_id_origin']        = $store_from->getWebsite()->getName().' - '.$store_from->getName();
-        $post['store_id_translation']   = $store_to->getWebsite()->getName().' - '.$store_to->getName();
-        $tarifs = $_api->getPricings();
-        $currency = Mage::getModel('directory/currency')->load($tarifs['code']);
-        
-        $userinfo = $_api->getUserInfo();
-        
-        if(isset($userinfo['wallet']['current_money']))
-            $credit = (float) $userinfo['wallet']['current_money'];
-        else $credit = 0;
-        
-        $project_price = (float) $post['price'];
-        if($post['total_word_count'])
-            $price_per_word = $project_price/$post['total_word_count'];
-        else 
-            $price_per_word = 0;
-        $post['price'] = $currency->format($post['price'],array(),false);
-        $html = $post['price'];
-        $html .='<br/><span>'.Mage::helper('textmaster')->__('Available credits:').' '.$currency->format($credit).'</span>';
-        if($project_price>$credit) {
-            $html .='<br/><span style="color:red">'.Mage::helper('textmaster')->__('Crédit manquant :'). $currency->format(($project_price-$credit), array(), false).'</span>';
-            $html .='<br/><a href="'.$_api->getInterfaceUri().'clients/payment_requests/new?project_id='.$this->getProject()->getProjectApiid().'" target="_blank">'.Mage::helper('textmaster')->__('Add credits to my TextMaster account').'</a>';
-        }
-
-        $this->getForm()->getElement('price')->setAfterElementHtml($html);
-        
-        $post['price'] = '';
-
-        if (Mage::helper('textmaster')->showProjectDiffWordCount($this->getProject())){
-            $post['total_word_count_saved'] = $this->getProject()->getDiffWordCount();
-        }
-        
-        $html = $this->getProject()->getLanguageLevelTexte($post['language_level']).'<br/>';
-        if($post['quality']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Quality control (+%s/word)' ,$currency->format($tarifs['types']['translation']['quality'],array(),false)).'<br/>';
-        }
-        if($post['priority']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Priority Order (+%s/word)',$currency->format($tarifs['types']['translation']['priority'],array(),false) ).'<br/>';
-        }
-        if($post['expertise']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Expertise (+%s/word)',$currency->format($tarifs['types']['translation']['expertise'],array(),false) ).'<br/>';
-        }
-        if($post['translation_memory']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Translation memory (+%s/word)', $currency->format($tarifs['types']['translation']['translation_memory'],array(),false) ).'<br/>';
-        }
-        if(isset($post['negotiated_contract'])) {
-            $negotiatedContractsPricing = Mage::helper('textmaster')->getNegotiatedContractsPricing();
-            $negotiatedContractPrice = $negotiatedContractsPricing[$post['negotiated_contract']];
-            $html .= Mage::helper('textmaster')->__('Negotiated contract (%s/word)', $currency->format($negotiatedContractPrice), array(), false).'<br/>';
-            // $html .= Mage::helper('textmaster')->__('Negotiated contract').'<br/>';
-        }
+	}
+	
+	public function setFormValues(){
+		$_api = Mage::helper('textmaster')->getApi();
+		
+		$post = $this->getProject()->getData();
+		
+		$store_from = Mage::getModel('core/store')->load($post['store_id_origin']);
+		$store_to = Mage::getModel('core/store')->load($post['store_id_translation']);
+		$post['ctype'] 					= ucfirst($post['ctype']);
+		$post['store_id_origin'] 		= $store_from->getWebsite()->getName().' - '.$store_from->getName();
+		$post['store_id_translation'] 	= $store_to->getWebsite()->getName().' - '.$store_to->getName();
+		$tarifs = $_api->getPricings();
+		$currency = Mage::getModel('directory/currency')->load($tarifs['code']);
+		
+		$userinfo = $_api->getUserInfo();
+		
+		if(isset($userinfo['wallet']['current_money']))
+			$credit = (float) $userinfo['wallet']['current_money'];
+		else $credit = 0;
+		
+		$project_price = (float) $post['price'];
+		if($post['total_word_count'])
+			$price_per_word = $project_price/$post['total_word_count'];
+		else 
+			$price_per_word = 0;
+		$post['price'] = $currency->format($post['price'],array(),false);
+		$html = $post['price'];
+		$html .='<br/><span>'.Mage::helper('textmaster')->__('Crédit disponible :').' '.$currency->format($credit).'</span>';
+		if($project_price>$credit) {
+			$html .='<br/><span style="color:red">'.Mage::helper('textmaster')->__('Crédit manquant :'). $currency->format(($project_price-$credit), array(), false).'</span>';
+			$html .='<br/><a href="'.$_api->getInterfaceUri().'clients/payment_requests/new?project_id='.$this->getProject()->getProjectApiid().'" target="_blank">'.Mage::helper('textmaster')->__('Add credits to my TextMaster account').'</a>';
+		}
+		$this->getForm()->getElement('price')->setAfterElementHtml($html);
+		
+		
+		
+		$post['price'] = '';
+		
+		$html = $this->getProject()->getLanguageLevelTexte($post['language_level']).'<br/>';
+		if($post['quality']) {
+			$html .= Mage::helper( 'textmaster' )->__( 'Contrôle qualité (+%s / mot)' ,$currency->format($tarifs['types']['translation']['quality'],array(),false)).'<br/>';
+		}
+		if($post['priority']) {
+			$html .= Mage::helper( 'textmaster' )->__( 'Commande prioritaire (+%s / mot)',$currency->format($tarifs['types']['translation']['priority'],array(),false) ).'<br/>';
+		}
+		if($post['expertise']) {
+			$html .= Mage::helper( 'textmaster' )->__( 'Expertise (+%s / mot)',$currency->format($tarifs['types']['translation']['expertise'],array(),false) ).'<br/>';
+		}
 		$html .= Mage::helper( 'textmaster' )->__('%s/word',$currency->format($price_per_word,array(),false));
 		
 		$this->getForm()->getElement('options')->setAfterElementHtml($html);

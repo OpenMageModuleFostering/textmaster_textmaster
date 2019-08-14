@@ -208,7 +208,7 @@
 							<show_in_store>1</show_in_store>
 							
 						</grammatical_person>
-						<!-- <expertise translate="label">
+						<expertise translate="label">
 							<label>Expertise</label>
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_yesno</source_model>
@@ -217,7 +217,7 @@
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 							
-						</expertise> -->
+						</expertise>
 					</fields>
 				</defaultvalue>
 			</groups>

@@ -96,8 +96,7 @@
 				'type'  => 'options',
 				'options'=> array (
 						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_REGULAR),
-						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM => 'Standard',
-                        Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_ENTERPRISE => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_ENTERPRISE),
+						Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM => ucfirst(Textmaster_Textmaster_Model_Project::PROJECT_LANGUAGE_LEVEL_PREMIUM),
 				),
 				'filter_condition_callback' => array($this, '_apiFilter'),
 		));
