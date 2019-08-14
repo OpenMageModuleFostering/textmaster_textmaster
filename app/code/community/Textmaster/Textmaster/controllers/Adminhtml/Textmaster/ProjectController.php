@@ -108,7 +108,7 @@ class Textmaster_Textmaster_Adminhtml_Textmaster_ProjectController extends Mage_
                     $summary = $this->getLayout()->createBlock('textmaster/adminhtml_project_onglets_summary');
                     $ongletBlock->setChild('textmaster.step2',$step2Block);
                     $ongletBlock->setChild('textmaster.summary',$summary);
-                    //$this->_addContent($step2Block);
+                    // $this->_addContent($step2Block);
                     $ongletBlock->setIntroHtml(Mage::helper('textmaster')->__('Fill out the project details and choose the service level and extra options. Give translator or proofreader special instructions (specific terms, layout guidelines, etc.)'));
                         
                                         

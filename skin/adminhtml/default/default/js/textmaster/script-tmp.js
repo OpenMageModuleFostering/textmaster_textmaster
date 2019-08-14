@@ -142,7 +142,6 @@ jQueryOnLoad = function($){
 			expertise = $('#expertise').val();
 			service_level = $('#language_level').val();
             translation_memory = $('#translation_memory').val();
-            negotiated_contract = $('#negotiated_contract').val();
 			
 			$('#textmaster_projet').html($('#ctype option[value='+ctype+']').html());
 			
@@ -193,11 +192,6 @@ jQueryOnLoad = function($){
                 html_option += Translator.translate('Translation memory')+'<br/>';
                 base_price += translation_memory_price;
             }
-            negotiated_contract_price = parseFloat(textmaster_negotiated_contract_prices[negotiated_contract]);
-            if(negotiated_contract != undefined && negotiated_contract != ''){
-                html_option += Translator.translate('Negotiated contract')+'<br/>';
-                base_price += negotiated_contract_price;
-            }
 			/*if(specific_attachment=='1'){
 				html_option += 'Specific attachment<br/>';
 				base_price += parseFloat(textmaster_pricing['types'][ctype]['specific_attachment']);
@@ -216,7 +210,7 @@ jQueryOnLoad = function($){
 			priceFormat.requiredPrecision = 2;
 			priceFormat.pattern = '%s';
 			$('#textmaster_nbmot').html(word_count);
-			$('#textmaster_total_price').html(formatCurrency(price,priceFormat)+' '+currency_symbol+'<br/>'+Translator.translate('worth')+' '+formatCurrency(base_price,priceFormat)+' '+currency_symbol+' / '+Translator.translate('word'));
+			$('#textmaster_total_price').html(formatCurrency(price,priceFormat)+' '+currency_symbol+'<br/>'+Translator.translate('worth')+' '+formatCurrency(base_price,priceFormat)+' '+currency_symbol+' / '+Translator.translate('mot'));
 			
 			language_from = $('#store_id_origin').val();
 			language_to = $('#store_id_translation').val();
@@ -285,7 +279,7 @@ jQueryOnLoad = function($){
 		
 		//updateDisplay();
 		
-		$('input[id^=attribute_],#ctype,#specific_attachment,#priority,#quality,#expertise,#language_level,#store_id_translation,#translation_memory,#negotiated_contract').change(function(){
+		$('input[id^=attribute_],#ctype,#specific_attachment,#priority,#quality,#expertise,#language_level,#store_id_translation').change(function(){
 			updateDisplay();
 		});
 		store_id = $('#store_id_origin').val();

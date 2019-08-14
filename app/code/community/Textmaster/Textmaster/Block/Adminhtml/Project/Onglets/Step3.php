@@ -144,7 +144,7 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
             $price_per_word = 0;
         $post['price'] = $currency->format($post['price'],array(),false);
         $html = $post['price'];
-        $html .='<br/><span>'.Mage::helper('textmaster')->__('Crédit disponible :').' '.$currency->format($credit).'</span>';
+        $html .='<br/><span>'.Mage::helper('textmaster')->__('Available credits:').' '.$currency->format($credit).'</span>';
         if($project_price>$credit) {
             $html .='<br/><span style="color:red">'.Mage::helper('textmaster')->__('Crédit manquant :'). $currency->format(($project_price-$credit), array(), false).'</span>';
             $html .='<br/><a href="'.$_api->getInterfaceUri().'clients/payment_requests/new?project_id='.$this->getProject()->getProjectApiid().'" target="_blank">'.Mage::helper('textmaster')->__('Add credits to my TextMaster account').'</a>';
@@ -160,13 +160,13 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step3 extends Mage_A
         
         $html = $this->getProject()->getLanguageLevelTexte($post['language_level']).'<br/>';
         if($post['quality']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Contrôle qualité (+%s / mot)' ,$currency->format($tarifs['types']['translation']['quality'],array(),false)).'<br/>';
+            $html .= Mage::helper( 'textmaster' )->__( 'Quality control (+%s/word)' ,$currency->format($tarifs['types']['translation']['quality'],array(),false)).'<br/>';
         }
         if($post['priority']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Commande prioritaire (+%s / mot)',$currency->format($tarifs['types']['translation']['priority'],array(),false) ).'<br/>';
+            $html .= Mage::helper( 'textmaster' )->__( 'Priority Order (+%s/word)',$currency->format($tarifs['types']['translation']['priority'],array(),false) ).'<br/>';
         }
         if($post['expertise']) {
-            $html .= Mage::helper( 'textmaster' )->__( 'Expertise (+%s / mot)',$currency->format($tarifs['types']['translation']['expertise'],array(),false) ).'<br/>';
+            $html .= Mage::helper( 'textmaster' )->__( 'Expertise (+%s/word)',$currency->format($tarifs['types']['translation']['expertise'],array(),false) ).'<br/>';
         }
         if($post['translation_memory']) {
             $html .= Mage::helper( 'textmaster' )->__( 'Translation memory (+%s/word)', $currency->format($tarifs['types']['translation']['translation_memory'],array(),false) ).'<br/>';

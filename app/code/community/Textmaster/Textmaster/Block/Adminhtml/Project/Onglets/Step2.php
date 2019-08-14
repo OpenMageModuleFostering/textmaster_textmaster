@@ -232,8 +232,8 @@
                 ),
                 // Mage::helper('textmaster')->__('Regular (%s/word): native-speaking translator for word-for-word translations of short texts.',$currency->format($tarifs['types']['translation']['regular'])).'<br/>'.
                 'after_element_html' => '<br/><small>'.
-                Mage::helper('textmaster')->__('Standard (%s/word): experienced translator; suitable for business use.',$currency->format($tarifs['types']['translation']['premium'])) .'<br/>'.
-                Mage::helper('textmaster')->__('Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.',$currency->format($tarifs['types']['translation']['enterprise'])) .'<br/>'.
+                Mage::helper('textmaster')->__('Standard (%s/word): Qualified native-speaking translators - best for short and simple projects.',$currency->format($tarifs['types']['translation']['premium'])) .'<br/>'.
+                Mage::helper('textmaster')->__('Enterprise (%s/word): Professional translators - best for complex projects or high volume catalogs.',$currency->format($tarifs['types']['translation']['enterprise'])) .'<br/>'.
                 '</small>',
         ));
         
@@ -278,7 +278,7 @@
                     Mage::helper ( 'textmaster' )->__ ( 'No' ),
                     Mage::helper ( 'textmaster' )->__ ( 'Yes' )
                 ),
-                'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We will find some words in our database').'</small>',
+                'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We will analyze your project to find repetitions.').'</small>',
                         
         ) );
 
@@ -288,7 +288,6 @@
                     'name'     => 'negotiated_contract',
                     'required' => false,
                     'values'   => Mage::helper('textmaster')->getNegotiatedContractsFormated(),
-                    // 'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('We will find some words in our database').'</small>',
             ));
         }
         
@@ -342,8 +341,8 @@
                 'name' => 'same_author_must_do_entire_project',
                 'required' => true,
                 'values' => array(
-                        Mage::helper ( 'textmaster' )->__ ( 'Non' ),
-                        Mage::helper ( 'textmaster' )->__ ( 'Oui' )
+                        Mage::helper ( 'textmaster' )->__ ( 'No' ),
+                        Mage::helper ( 'textmaster' )->__ ( 'Yes' )
                 ),
                 'after_element_html' => '<br/><small>'.Mage::helper('textmaster')->__('Ensures better continuity, but longer turnaround time').'</small>',
                 

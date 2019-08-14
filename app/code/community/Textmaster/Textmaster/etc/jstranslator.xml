@@ -38,6 +38,9 @@
     <textmaster_word translate="message" module="textmaster">
         <message>word</message>
     </textmaster_word>
+    <textmaster_worth translate="message" module="textmaster">
+        <message>worth</message>
+    </textmaster_worth>
     <textmaster_translation_memory translate="message" module="textmaster">
         <message>Translation memory</message>
     </textmaster_translation_memory>

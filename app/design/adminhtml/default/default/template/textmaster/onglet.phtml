@@ -21,13 +21,13 @@ $selectedProducts = Mage::getSingleton('core/session')->getSelectedProducts();
 
 $steps = array(
 	1 => array("label" => Mage::helper('textmaster')->__("Select products")),
-	2 => array("label" => Mage::helper('textmaster')->__("Propriétés du projet")),
+	2 => array("label" => Mage::helper('textmaster')->__("Project Settings")),
 	3 => array("label" => Mage::helper('textmaster')->__("Project Summary"))
 );
 ?>
 <?php echo $this->getFormInitScripts() ?>
 <div class="content-header">
-    <h3><?php echo Mage::helper("textmaster")->__('Nouveau projet')?></h3>
+    <h3><?php echo Mage::helper("textmaster")->__('New Project')?></h3>
     <p class="form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
 </div>
 <div class="textmaster-introduction">
