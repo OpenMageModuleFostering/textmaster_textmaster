@@ -32,13 +32,13 @@ class Textmaster_Textmaster_Block_Adminhtml_System_Config_Form_Field_Islog exten
 		$_isLog = $_api->getAPIConnection();
 				
 		if($_isLog) {
-			$html = '<input type="hidden" name="istextmasterlog" value="1">';
+			$html = '<input type="hidden" id="textmaster_textmaster_istextmasterlog" name="istextmasterlog" value="1">';
 			$html .= "<script>
 			    var textmaster_is_log = true;
 				
 			</script>";
 		} else {
-			$html = '<input type="hidden" name="istextmasterlog" value="0">';
+			$html = '<input type="hidden" id="textmaster_textmaster_istextmasterlog" name="istextmasterlog" value="0">';
 			$html .= "<script>
 			     var textmaster_is_log = false;    				
 			</script>";

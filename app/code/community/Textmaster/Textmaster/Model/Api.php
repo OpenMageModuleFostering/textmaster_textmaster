@@ -864,7 +864,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
                 'same_author_must_do_entire_project' => 'true',
                 'language_level' => 'regular',
                 'quality' => 'false',
-                'expertise' => 'false',
+                #'expertise' => 'false',
                 'vocabulary_type' => Mage::getStoreConfig(
                         'textmaster/defaultvalue/type_vocabulary'),
                 'grammatical_person' => Mage::getStoreConfig(
@@ -885,7 +885,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         $options = array(
                 'language_level' => $parameters['language_level'],
                 'quality' => $parameters['quality'],
-                'expertise' => $parameters['expertise'],
+                // 'expertise' => $parameters['expertise'],
                 'specific_attachment' => isset(
                         $parameters['specific_attachment']) ? $parameters['specific_attachment'] : 'false',
                 'priority' => $parameters['priority']
@@ -923,7 +923,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         $options = array(
                 'language_level' => $parameters['language_level'],
                 'quality' => isset($parameters['quality']) ? $parameters['quality'] : '0',
-                'expertise' => isset($parameters['expertise']) ? $parameters['expertise'] : '0',
+                // 'expertise' => isset($parameters['expertise']) ? $parameters['expertise'] : '0',
                 'specific_attachment' => isset(
                         $parameters['specific_attachment']) ? $parameters['specific_attachment'] : '0',
                 'priority' => isset($parameters['priority']) ? $parameters['priority'] : '0'
