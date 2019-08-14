@@ -1,0 +1,148 @@
+<?php 
+/**
+ * Copyright (c) 2014 Textmaster
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* It is available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+*
+* @category    Textmaster
+* @package     Textmaster_Textmaster
+* @copyright   Copyright (c) 2014 Textmaster
+* @author 	    Addonline (http://www.addonline.fr)
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+
+$_project = $this->getProject();
+$_helper = Mage::helper('textmaster');
+
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-products"><?php echo $_project->getName(); ?></h3></td>
+            <td class="form-buttons">
+                <?php echo $this->getButtonsHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="textmaster-introduction">
+<?php echo $this->getIntroHtml() ?> 
+<?php echo Mage::helper('textmaster')->__('Vous pouvez suivre le statut de chaque fiche de votre projet. Si votre fiche est en cours de révision, cliquez sur "voir" pour consulter le texte soumis par l\'auteur. Vous avez en tout 7 jours pour valider une fiche ou demander une révision une fois celle-ci traitée par l\'auteur.');?>
+</div>
+<div class="entry-edit">
+    <div class="entry-edit-head"><h4 class="icon-head head-customer-view"><?php echo $_helper->__('Project Information') ?></h4></div>
+    <fieldset>
+    	<table cellspacing="2" class="box-left">
+            <tr>
+            	<td width="200"><?php echo $_helper->__('Type of project:'); ?></td>
+            	<td><?php echo $_helper->__($_project->getCtype()); ?></td>
+            </tr>
+            <tr>
+            	<td><?php echo $_helper->__('Source language:'); ?></td>
+            	<td><?php echo $_project->getStoreNameOrigin(); ?></td>
+            </tr>
+            <tr>
+            	<td><?php echo $_helper->__('Word count:'); ?></td>
+            	<td><?php echo (int)$_project->getTotalWordCount(); ?></td>
+            </tr>
+            <?php if ($_helper->showProjectDiffWordCount($_project)): ?>
+            <tr>
+                <td><?php echo $_helper->__('Nb words that you saved:'); ?></td>
+                <td><?php echo $_project->getDiffWordCount() ?></td>
+            </tr>
+            <?php endif ?>
+            <tr>
+                <td><?php echo $_helper->__('Level:'); ?></td>
+                <td><?php echo $_project->getLanguageLevelTexte(); ?></td>
+            </tr>        
+            <tr>
+                <td><?php echo $_helper->__('Single author:'); ?></td>
+                <td><?php echo $_project->getSameAuthorMustDoEntireProject()?$_helper->__('Yes'):$_helper->__('No'); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $_helper->__('Briefing:'); ?></td>
+                <td><?php echo $_project->getProjectBriefing(); ?></td>
+            </tr>
+        </table>
+        <table cellspacing="2" class="box-right">
+        	<tr>
+            	<td width="200"><?php echo $_helper->__('Status:'); ?></td>
+            	<td><?php echo $_project->getStatusTexte(); ?></td>
+            </tr>
+        	           
+            <tr>
+            	<td><?php echo $_helper->__('Target language:'); ?></td>
+            	<td><?php echo $_project->getStoreNameTranslation(); ?></td>
+            </tr>
+            <tr>
+            	<td><?php echo $_helper->__('Price:'); ?></td>
+            	<td><?php echo $_project->getPrice(); ?></td>
+            </tr>
+            <tr>
+            	<td><?php echo $_helper->__('Reference:'); ?></td>
+            	<td><?php echo $_project->getReference(); ?></td>
+            </tr>            
+            <tr>
+            	<td><?php echo $_helper->__('Nombre de textmasters :'); ?></td>
+            	<td><?php echo count($_project->getTextmasters()); ?></td>
+            </tr>
+            <tr>
+            	<td><?php echo $_helper->__('Options:'); ?></td>
+            	<td>
+            	<?php echo $_project->getQuality()?Mage::helper( 'textmaster' )->__( 'Quality control' ).'<br/>':''; ?>
+            	<?php echo $_project->getPriority()?Mage::helper( 'textmaster' )->__( 'Priority order' ).'<br/>':''; ?>
+            	<?php echo $_project->getExpertise()?Mage::helper( 'textmaster' )->__( 'Expertise' ).'<br/>':''; ?>
+                <?php echo $_project->getTranslationMemory()?Mage::helper( 'textmaster' )->__( 'Translation memory' ).'<br/>':''; ?>
+            	</td>
+            </tr>
+        </table>
+        
+    </fieldset>
+</div> 
+<div class="content-header">
+	<h3 class="icon-head head-products"><?php echo $_helper->__('Documents'); ?></h3>
+</div>
+                                         
+<?php 
+echo $this->getChildrenHtml('project.view.documents'); ?>
+<script type="text/javascript">// <![CDATA[
+var message_completed_document = '<?php echo addslashes($_helper->__('Your product descriptions are being approved. This will take a few minutes if you have many. You can use Magento in the meantime and then come back to your project to finish it.')); ?>';
+
+var jQueryCall = function($){		
+    <?php echo $this->getChild('project.view.documents')->getId().'_massactionJsObject'?>.setUseAjax(true);
+    <?php 
+    $docs_all = $_project->getDocumentsSendToCompleted();
+    $docs_notcomp = $_project->getDocumentsSendNotCompleted();
+    $ndocc = count($docs_notcomp);
+    $ndoc = count($docs_all);
+    
+    if($docs_all && $ndocc) :
+        $nd = ($ndoc-$ndocc) / $ndoc;
+        $r = round($nd,2)*100;
+    ?>    
+    		html = '<?php echo $r; ?>%'+'<span class="progress-cadre"><span class="progress" style="width:'+<?php echo $r; ?>+'%"></span></span>';
+			html += '<span class="message">'+message_completed_document+'</span>';
+			$('#loading_mask_loader_message').html(html);
+			$('#loading_mask_loader_message').show(0);
+			jQuery('body > .wrapper > .header').css({position:'relative',zIndex:600});
+			jQuery('body > .wrapper > .header a').click(function(e){
+				if(jQuery(this).attr('href')!='') {
+					e.preventDefault();
+					if(typeof ajax_request.transport!='undefined')
+						ajax_request.transport.abort();
+					window.location = jQuery(this).attr('href');
+					
+				}
+			});
+			iscomplete('<?php echo $this->getUrl('*/*/doccompleteready',array('id'=>$_project->getId())); ?>');    
+    <?php endif; ?>
+};
+//]]></script>
+<?php 
+//var_dump($this->getChild('project.view.documents')->debug());
+//foreach($this->getChild('project.view.documents')->getChild() as $child) var_dump($child->debug()); 
+?>

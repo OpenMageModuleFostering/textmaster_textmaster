@@ -1,21 +1,14 @@
 <?xml version="1.0"?>
 <package>
     <name>Textmaster_Textmaster</name>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <stability>stable</stability>
     <license uri="http://opensource.org/licenses/OSL-3.0">Open Software License</license>
     <channel>community</channel>
     <extends/>
     <summary>Get your product descriptions translated or corrected by professionals directly through Magento.</summary>
     <description>TextMaster makes it easy to translate (or proofread) your entire product catalog by professionals in over 15 languages. Open your doors to new markets in just a few clicks by using our intuitive extension to make your store multilingual.</description>
-    <notes>Projects Grid Fixes.&#xD;
-&#xD;
-if you have any trouble with our extension, be sure to let us know at contact@textmaster.com&#xD;
-&#xD;
-------------&#xD;
-&#xD;
-Textmaster extension uses Callbacks to update project informations, your environment need to be reachable by our server.&#xD;
-For more information: contact@textmaster.com</notes>
+    <notes>Projects Grid Fixes.</notes>
     <authors><author><name>Textmaster</name><user>Textmaster</user><email>contact@textmaster.com</email></author></authors>
     <date>2017-07-20</date>
     <time>08:51:18</time>
