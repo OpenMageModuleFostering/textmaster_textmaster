@@ -45,18 +45,22 @@ class Textmaster_Textmaster_Block_Adminhtml_Project_Onglets_Step1 extends Mage_A
 
 	protected function _prepareCollection()
 	{
+	    //Table name 
+	    $table_project = Mage::getResourceModel('textmaster/project')->getMainTable();
+	    $table_document = Mage::getResourceModel('textmaster/document')->getMainTable();
+	    
 		$store = $this->_getStore();
 		$subcollection = Mage::getModel('core/store')->getCollection();
 		$subcollection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(new Zend_Db_Expr('GROUP_CONCAT(main_table.store_id SEPARATOR ";") as store_name_to,GROUP_CONCAT(main_table.store_id SEPARATOR ";") as store_id_to, tdocument.product_id'))
-			->joinInner(array('tproject'=>'textmaster_project'),'main_table.store_id = tproject.store_id_translation', array())
-			->joinInner(array('tdocument'=>'textmaster_document'),'tproject.textmaster_project_id = tdocument.textmaster_project_id', array())
+			->joinInner(array('tproject'=>$table_project),'main_table.store_id = tproject.store_id_translation', array())
+			->joinInner(array('tdocument'=>$table_document),'tproject.textmaster_project_id = tdocument.textmaster_project_id', array())
 			->where('tproject.store_id_translation!=tproject.store_id_origin')
 			->order('tproject.textmaster_project_id')->group('product_id');
 		
 		$subcollection2 = Mage::getModel('core/store')->getCollection();
 		$subcollection2->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(new Zend_Db_Expr('GROUP_CONCAT(main_table.store_id SEPARATOR ";") as store_name_from, tdocument2.product_id'))
-		->joinInner(array('tproject2'=>'textmaster_project'),'main_table.store_id = tproject2.store_id_origin', array())
-		->joinInner(array('tdocument2'=>'textmaster_document'),'tproject2.textmaster_project_id = tdocument2.textmaster_project_id', array())
+		->joinInner(array('tproject2'=>$table_project),'main_table.store_id = tproject2.store_id_origin', array())
+		->joinInner(array('tdocument2'=>$table_document),'tproject2.textmaster_project_id = tdocument2.textmaster_project_id', array())
 		->where('tproject2.store_id_translation!=tproject2.store_id_origin')
 		->order('tproject2.textmaster_project_id')->group('tdocument2.product_id');
 		

@@ -29,7 +29,7 @@
 
 	<modules>
 		<Textmaster_Textmaster>
-			<version>0.1.0</version>
+			<version>0.1.1</version>
 		</Textmaster_Textmaster>
 	</modules>
 	<global>
@@ -37,12 +37,7 @@
             <textmaster><class>Textmaster_Textmaster_Helper</class></textmaster>            
         </helpers>
         <blocks>
-    		<textmaster><class>Textmaster_Textmaster_Block</class></textmaster>
-    		<adminhtml>
-                <rewrite>
-                    <catalog_product_grid>Textmaster_Textmaster_Block_Adminhtml_Catalog_Product_Grid</catalog_product_grid>                  
-                </rewrite>
-            </adminhtml>
+    		<textmaster><class>Textmaster_Textmaster_Block</class></textmaster>    		
     	</blocks>
     	<models>
     		<textmaster>

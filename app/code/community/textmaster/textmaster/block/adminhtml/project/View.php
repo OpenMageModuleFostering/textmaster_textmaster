@@ -23,7 +23,7 @@
  * @copyright   Copyright (c) 2014 Textmaster
  * @author 	    Addonline (http://www.addonline.fr)
  */
- class Textmaster_Textmaster_Block_Adminhtml_Project_View extends Mage_Adminhtml_Block_Widget_View_Container {
+ class Textmaster_Textmaster_Block_Adminhtml_Project_View extends Mage_Adminhtml_Block_Widget_Container {
 	
 	private $_project;
 	

@@ -1,7 +1,7 @@
 My Projects,My Projects
 New Project,New Project
 Update file,Update file
-Put in revision,Put in revision
+Put in revision,Ask for a revision
 Name,Name
 Reference,Reference
 Source language,Source language
@@ -9,7 +9,7 @@ Langue de destination,Target language
 Level,Level
 Number of documents,Number of documents
 Total word count,Total word count
-Progression,Progression
+Progression,Progress
 Status,Status
 Last change,Last change
 Actions,Actions
@@ -26,7 +26,7 @@ Traduction manquante :,Missing translation
 Traduction existante,Existing translation
 Project,Project
 Fields to translate,Fields to translate
-Product informations,Product informations
+Product informations,Product information
 Select all,Select all
 Deselect all,Deselect all
 Nouveau message variable,Your project is being created. This will take a few minutes if you have many product descriptions. You can use Magento in the meantime and then come back to your project to finish it.
@@ -35,13 +35,13 @@ Languages,Languages
 Select a language,Select a language
 Pricing options,Pricing options
 Service level,Service level
-Regular (%s/word): native-speaking translator for word-for-word translations of short texts.,Regular (%s/word): native-speaking translator for word-for-word translations of short texts.
+Regular (%s/word): native-speaking translator for word-for-word translations of short texts.,Basic (%s/word): native-speaking translator for literal translations of short texts.
 Premium (%s/word): experienced translator; suitable for business use.,Premium (%s/word): experienced translator; suitable for business use.
 Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.,Enterprise (%s/word): professional translator specialized in a specific field; suitable for technical or complex content.
 Quality Control (+%s/word),Quality Control (+%s/word)
 No,No
 Yes,Yes
-The translator's work will be proofread and corrected by TextMaster,The translator's work will be proofread and corrected by TextMaster
+The translator's work will be proofread and corrected by TextMaster,The translator's work will be proofread and corrected by TextMaster.
 Priority Order (+%s/word),Priority Order (+%s/word)
 Your project will be assigned a higher priority status.,Your project will be assigned a higher priority status.
 Expertise (+%s/word),Expertise (+%s/word)
@@ -57,13 +57,13 @@ Type of project,Type of project
 Total word count,Total word count
 Total cost,Total cost
 Level and options,Level and options
-Project's name,Project's name
+Project's name,Project name
 Favorite authors,Favorite authors
 Add credits to my TextMaster account,Add credits to my TextMaster account
 %s/word,%s/word
-Textmaster(s) chosen:,Textmaster(s) chosen:
+Textmaster(s) chosen:,TextMaster(s) chosen:
 none,none
-My Textmasters,My Textmasters
+My Textmasters,My TextMasters
 Choose your TextMasters,Choose your TextMasters
 Order Summary,Order Summary
 Project,Project
@@ -80,11 +80,11 @@ Password mandatory,Password mandatory
 Could not get access token,Could not get access token
 Your account has been successfully created.,Your account has been successfully created.
 "Select the list of products to translate or proofread. Use the filter in the last column to select the product descriptions that haven't been translated yet. If the product description has already been translated on TextMaster, a flag will appear beside each completed translation.","Select the list of products to translate or proofread. Use the filter in the last column to select the product descriptions that haven't been translated yet. If the product description has already been translated on TextMaster, a flag will appear beside each completed translation."
-"Fill out the project details and choose the service level and extra options. Give translator or proofreader special instructions (specific terms, layout guidelines, etc.)","Fill out the project details and choose the service level and extra options. Give translator or proofreader special instructions (specific terms, layout guidelines, etc.)"
-"Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com","Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com"
-Project creation error,Project creation error
+"Fill out the project details and choose the service level and extra options. Give translator or proofreader special instructions (specific terms, layout guidelines, etc.)","Fill out the project details and choose the service level and extra options. Give the translator or proofreader special instructions (specific terms, layout guidelines, etc.)"
+"Verify your project setting before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com","Verify your project settings before placing your order. If you do not have enough credits on TextMaster, click on the link below to add credits to your account on TextMaster.com"
+Project creation error,Error creating project
 No post,No post
-Regular,Regular
+Regular,Basic
 Premium,Premium
 Not specified,Not specified
 Popular,Popular
@@ -102,15 +102,15 @@ Teenagers > between 14 and 18 years old,Teenagers > between 14 and 18 years old
 Young adults > between 19 and 29 years old,Young adults > between 19 and 29 years old
 Adults > between 30 and 59 years old,Adults > between 30 and 59 years old
 Seniors > 60 years old and beyond,Seniors > 60 years old and beyond
-completed,completed
+completed,Completed
 In creation,In creation
-Waiting assignment,Waiting assignment
+Waiting assignment,Awaiting assignment
 In progress,In progress
 In review,In review
 Completed,Completed
 Incomplete,Incomplete
 Paused,Paused
-Cancelled,canceled
+Cancelled,Canceled
 Copyscape,Copyscape
 Counting words,Counting words
 Quality control,Quality control
@@ -146,7 +146,7 @@ Expertise,Expertise
 Documents,Documents
 Support messages,Support messages
 Written by %s ,Written by %s 
-Text intro document view,"You can view the file submitted by the author below. If you are satisfied with the content, click on \""Update file\"". Otherwise, you can ask the author for a revision by explaining what elements need to be changed."
+Text intro document view,"You can view the file submitted by the translator/proofreader below. If you are satisfied with the content, click on \""Update file\"". Otherwise, you can ask for a revision by explaining what elements need to be changed."
 File information,File information
 Elements,Elements
 Text source,Source text
@@ -159,23 +159,23 @@ TextMaster Login,TextMaster Login
 Create your account,Create your account
 The list below shows all of your TextMaster translation and proofreading projects.,The list below shows all of your TextMaster translation and proofreading projects.
 "To see a project's details, click on ''View'' in the last column. To start a translation project or to proofread your product descriptions, click on the ''New Project'' button.","To see a project's details, click on ''View'' in the last column. To start a translation project or to proofread your product descriptions, click on the ''New Project'' button."
-Crédit disponible :,Available credits:
-Crédit manquant :,Missing credits:
+CrÃ©dit disponible :,Available credits:
+CrÃ©dit manquant :,Missing credits:
 Credits:,Credits:
-Textmaster account,Textmaster account:
+Textmaster account,TextMaster account:
 word(s),word(s)
 translation,translation
 proofreading,proofreading
 Translation,Translation
 Proofreading,Proofreading
-Select products,Select product
-Propriétés du projet,Project settings
+Select products,Select Product
+PropriÃ©tÃ©s du projet,Project Settings
 Textmasters saved,TextMasters saved
-You do not have any authors in your Favorites list,You do not have any authors in your Favorites list
+You do not have any authors in your Favorites list,You do not have anyone in your Favorite TextMasters list
 Project does not exist,Project does not exist
 Buy credits,Buy credits
 Manage Projects,Manage Projects
-Activities,Activities
+Activities,Services
 Product Default Language,Product Default Language
 Briefing message for proofreading,Briefing message for proofreading
 Briefing message for translation,Briefing message for translation
@@ -189,7 +189,7 @@ Password,Password
 Confirm password,Confirm password
 Phone,Phone
 Create your free account,Create your free account
-Connexion,Connexion
+Connexion,Log in
 Login,Login
 Searching...,Searching...
 Logout,Logout

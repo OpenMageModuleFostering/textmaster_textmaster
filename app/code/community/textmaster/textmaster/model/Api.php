@@ -313,6 +313,7 @@ class Textmaster_Textmaster_Model_Api extends Mage_Core_Model_Abstract
         $response = curl_exec($curl);
         
         try {
+            Mage::log($response,null,'textmaster.log');
             return Mage::helper('core')->jsonDecode($response);
         } catch (Exception $e) {
             Mage::log('Exception : ' . $uri,null,'textmaster.log');

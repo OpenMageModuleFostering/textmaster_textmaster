@@ -204,8 +204,8 @@
 			$data['textmasters'] = explode(',',$data['textmasters'][0]);
 			
 		}*/
-		//if(isset($data['textmasters']) && is_)
-		//$this->setTextmasters(serialize($data['textmasters']));
+		if(isset($data['textmasters']) && is_array($data['textmasters']))
+		  $this->setTextmasters(serialize($data['textmasters']));
 			
 		//Creation
 		if(!$this->getId()){
@@ -331,8 +331,9 @@
 			return parent::_afterSave();
 		}
 		if($this->getTextmasters()!='') {
-			
-			$this->setTextmasters(unserialize($this->getTextmasters()));
+		    $textmasters = $this->getTextmasters();
+		      if(is_array($textmasters))		
+			     $this->setTextmasters(unserialize($this->getTextmasters()));
 		}
 		return parent::_afterSave();
 	}
@@ -490,8 +491,9 @@
 	}
 	public function getAttributesFull(){
 		if(!isset($this->_attributes_full)){
+		    
 			$this->_attributes_full = Mage::getModel('textmaster/project_attribute')->getCollection()->addFieldToFilter('textmaster_project_id',$this->getId());
-			$this->_attributes_full->getSelect()->joinInner(array('attribute'=>'eav_attribute'),'main_table.textmaster_attribute_id = attribute.attribute_id');
+			$this->_attributes_full->getSelect()->joinInner(array('attribute'=>Mage::getSingleton('core/resource')->getTableName('eav_attribute')),'main_table.textmaster_attribute_id = attribute.attribute_id');
 			foreach($this->_attributes_full as $attribute){
 				$attribute->setProject($this);
 			}
