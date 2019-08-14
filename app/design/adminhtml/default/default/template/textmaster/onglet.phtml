@@ -1,0 +1,61 @@
+<?php 
+/**
+ * Copyright (c) 2014 Textmaster
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* It is available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+*
+* @category    Textmaster
+* @package     Addonline_Textmaster
+* @copyright   Copyright (c) 2014 Textmaster
+* @author 	    Addonline (http://www.addonline.fr)
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+
+$step = (isset($step)) ? $step : 1;
+
+$selectedProducts = Mage::getSingleton('core/session')->getSelectedProducts();
+
+$steps = array(
+	1 => array("label" => Mage::helper('textmaster')->__("Select products")),
+	2 => array("label" => Mage::helper('textmaster')->__("Propriétés du projet")),
+	3 => array("label" => Mage::helper('textmaster')->__("Project Summary"))
+);
+?>
+<?php echo $this->getFormInitScripts() ?>
+<div class="content-header">
+    <h3><?php echo Mage::helper("textmaster")->__('Nouveau projet')?></h3>
+    <p class="form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+</div>
+<div class="textmaster-introduction">
+<?php echo $this->getIntroHtml() ?>  
+</div>
+<ol class="steps_project">
+	<?php for($i = 1; $i <=3 ; $i++){ 
+		$class = ($i == $step) ? "current" : (($i > $step) ? "disabled" : "");
+		?>
+		<li class="step<?php echo $i;?> <?php echo $class; ?>">
+			<span>
+				<?php if($i < $step){?>
+					<a href="<?php echo Mage::helper("adminhtml")->getUrl("textmaster/adminhtml_project/edit" , array('step' => $i , '_query' => array('internal_products_id' => implode("," , $selectedProducts))));?>">
+						<?php echo $steps[$i]["label"];?>
+					</a>
+				<?php } else { 
+					echo $steps[$i]["label"];
+				}?>
+			</span>
+		</li>
+	<?php } ?>
+</ol>
+<table width="100%">
+	<tr>
+		<td width="67%"><?php echo $this->getChildHtml('textmaster.step2'); ?></td>
+		<td width="3%">&nbsp;</td>
+		<td width="30%"><?php echo $this->getChildHtml('textmaster.summary'); ?></td>
+	</tr>
+</table>
+
+

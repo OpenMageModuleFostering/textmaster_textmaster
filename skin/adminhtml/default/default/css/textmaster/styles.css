@@ -1,0 +1,176 @@
+/**
+ * Copyright (c) 2014 Textmaster
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* It is available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+*
+* @category    Addonline
+* @package     Addonline_Textmaster
+* @copyright   Copyright (c) 2014 Textmaster
+* @author 	    Addonline (http://www.addonline.fr)
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+ol.steps_project {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Liberation Sans', Verdana, 'Verdana Ref', sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: bold;
+    counter-reset: li;
+}
+
+ol.steps_project > li {
+	float: left;
+	list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+    text-align: center;
+    color: #3a3a3a;
+    background: #FAFAFA;
+    position: relative;
+    margin-left: 43px;
+}
+
+ol.steps_project > li.disabled{
+	color : #AAA;
+}
+
+ol.steps_project > li:after {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border: solid transparent;
+    border-left-color: #FAFAFA;
+    border-width: 19px;
+    margin-top: -19px;
+}
+
+ol.steps_project > li:first-child {
+	margin-left: 0;
+}
+
+ol.steps_project > li:first-child span {
+	padding: 9px;
+}
+
+
+ol.steps_project > li:first-child span:after {
+    border: none;
+}
+
+ol.steps_project > li:last-child:after {
+	border-width: 0;
+}
+
+
+ol.steps_project > li span {
+	display: block;
+	padding: 9px 28px 9px 9px;
+}
+
+
+ol.steps_project > li span:after {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border: solid #FAFAFA;
+    border-left-color: transparent;
+    border-width: 19px;
+    margin-top: -19px;
+}
+
+ol.steps_project > li span::before {
+    content: counter(li) ") ";
+    counter-increment: li;
+}
+
+ol.steps_project > li.current {
+	color: #fff;
+	background: #6F8992;
+}
+
+
+ol.steps_project > li.current:after {
+	border-left-color: #6F8992;
+}
+
+ol.steps_project > li.current span:after {
+	border-color: #6F8992;
+	border-left-color: transparent;
+}
+
+  
+li.step1 {
+	z-index: 3;
+}
+li.step2 {
+	z-index: 2;
+}
+li.step3 {
+	z-index: 1;
+}
+.textmaster-info{
+	background:#F6F6F6;
+	border:1px solid #EFEFEF;
+	padding: 5px 17px 5px 17px;
+	margin-bottom: 10px;
+	font-weight:bold;
+}
+.textmaster-info .textmaster-credit{
+	display:block;
+	float:right;
+}
+.textmaster-introduction{
+	margin-bottom:16px;
+}
+.progress-cadre{
+	display:block;
+	width:240px;
+	height:20px;
+	border:1px solid #f1af73;
+}
+.progress{
+	width:0;
+	display:block;
+	height:20px;
+	line-height:20px;
+	background: #ffac47 url("../../images/btn_bg.gif") repeat-x scroll 0 100% ;
+}
+#loading-mask .textmasterloading{
+	margin-left: -145px;
+	width:250px;
+}
+#loading-mask .textmasterloading .message{
+	display:block;
+	padding:10px 0 0 0;
+	font-size: 0.85em;
+	line-height:1.1em;
+	font-weight: normal;
+}
+tr.text-disable{
+	cursor: not-allowed !important;
+}	
+tr.text-disable td{
+	/*background:#DDD;*/
+	color:#CCC;
+	font-style:italic;
+	
+	
+}    
+tr.text-disable td a {
+	display:none;
+}

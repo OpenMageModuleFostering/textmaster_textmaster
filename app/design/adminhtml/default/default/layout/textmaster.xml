@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Copyright (c) 2014 Textmaster
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Textmaster
+ * @package     Textmaster_Textmaster
+ * @copyright   Copyright (c) 2014 Textmaster
+ * @author 	    Addonline (http://www.addonline.fr)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Addonline_Textmaster
+ *
+ * @category    Addonline
+ * @package     Addonline_Textmaster
+ * @copyright   Copyright (c) 2014 Textmaster
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+  -->
+<layout version="0.1.0">
+
+	<default>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>js/textmaster/script.js</name></action>
+		</reference>
+	</default>
+    <textmaster_adminhtml_project_index>
+    	<reference name="head">
+            <action method="addCss">
+    			<name>css/textmaster/styles.css</name>
+    		</action>
+    		
+    		 		
+        </reference>
+        <reference name="content">
+        	<block type="textmaster/adminhtml_credit" name="credit" template="textmaster/credit.phtml" />
+            <block type="textmaster/adminhtml_project" template="textmaster/grid/container.phtml" name="project" />
+        </reference>
+    </textmaster_adminhtml_project_index>
+    <textmaster_adminhtml_project_login>
+    	<reference name="content">
+        	<block type="core/template" name="credit" template="textmaster/login.phtml" />
+            
+        </reference>
+    </textmaster_adminhtml_project_login>
+    <textmaster_adminhtml_project_edit>
+    	 <reference name="head">
+       		<action method="addJs"><script>prototype/window.js</script></action>
+	        <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+	        <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+	        <action method="addCss">
+    			<name>css/textmaster/styles.css</name>
+    		</action>
+            <action method="addCss">
+    			<name>css/textmaster/styles.css</name>
+    		</action>
+    		
+    		 		
+        </reference>
+        <reference name="content">
+        	<block type="textmaster/adminhtml_credit" name="credit" template="textmaster/credit.phtml" />
+        </reference>
+        <reference name="root">
+	        <action method="setTemplate"><template>textmaster/page.phtml</template></action>	        
+	    </reference>
+      
+    </textmaster_adminhtml_project_edit>
+    <textmaster_adminhtml_project_view>
+    	<reference name="head">
+    		<action method="addCss">
+    			<name>css/textmaster/styles.css</name>
+    		</action>
+    		  		
+        </reference>
+    	<reference name="content">
+    		<block type="textmaster/adminhtml_credit" name="credit" template="textmaster/credit.phtml" />
+            <block type="textmaster/adminhtml_project_view" template="textmaster/view.phtml" name="project.view">
+            	<block type="textmaster/adminhtml_project_view_documents"  name="project.view.documents"></block>
+            </block>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>textmaster/page.phtml</template></action>            
+        </reference>
+    </textmaster_adminhtml_project_view>
+    <textmaster_adminhtml_project_document>
+    
+    	<reference name="content">
+    		<block type="textmaster/adminhtml_credit" name="credit" template="textmaster/credit.phtml" />
+            <block type="textmaster/adminhtml_document_view" template="textmaster/document/view.phtml" name="project.document.view">           	
+            </block>
+            <block type="textmaster/adminhtml_document_supportmessage" template="textmaster/document/support_messages.phtml" name="project.document.supportmessage">           	
+            </block>
+        </reference>
+        <reference name="head">
+        	<action method="addJs"><script>prototype/window.js</script></action>
+	        <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+	        <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+	        <action method="addCss">
+    			<name>css/textmaster/styles.css</name>
+    		</action>
+    		 <action method="addCss">
+                <name>css/textmaster/styles.css</name>
+            </action>
+    		 <action method="addItem"><type>skin_js</type><name>js/textmaster/script.js</name></action>      
+	    </reference>
+	    <reference name="root">
+            <action method="setTemplate"><template>textmaster/page.phtml</template></action>            
+        </reference>
+    </textmaster_adminhtml_project_document>
+    	
+    <textmaster_adminhtml_project_getmyauthors>
+    	<remove name="menu" />
+    	<remove name="notifications" />
+    	<remove name="header" />
+    	<remove name="footer" />
+    	<reference name="head">
+    		<action method="addCss">
+    			<name>css/textmaster/popin.css</name>
+    		</action>
+    	</reference>
+    	<reference name="content">
+    		<block type="textmaster/adminhtml_project_onglets_step3_author" name="step3_author"  as="step3_author">
+    		</block>
+    	</reference>
+    	
+    </textmaster_adminhtml_project_getmyauthors>
+</layout>

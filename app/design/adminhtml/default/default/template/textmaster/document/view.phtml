@@ -1,0 +1,102 @@
+<?php 
+/**
+ * Copyright (c) 2014 Textmaster
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* It is available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+*
+* @category    Textmaster
+* @package     Addonline_Textmaster
+* @copyright   Copyright (c) 2014 Textmaster
+* @author 	    Addonline (http://www.addonline.fr)
+* @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+
+$_document = $this->getDocument();
+$_helper = Mage::helper('textmaster');
+$_translations = $_document->getTranslations();
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-products"><?php echo $_document->getName(); ?></h3></td>
+            <td class="form-buttons">
+                <?php echo $this->getButtonsHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="textmaster-introduction">
+<?php echo $this->getIntroHtml() ?> 
+<?php echo $_helper->__("Text intro document view")?>
+</div>
+<div class="entry-edit">
+    <div class="entry-edit-head"><h4 class="icon-head head-customer-view"><?php echo $_helper->__('File information') ?></h4></div>
+    <fieldset>
+    	<table cellspacing="2" width="100%">
+            <tr>
+            	<th width="20%"><?php echo $_helper->__('Elements');  ?></th>
+            	<th width="40%"><?php echo $_helper->__('Text source'); ?></th>
+            	<th width="40%"><?php echo $_helper->__('Translated text'); ?></th>
+            </tr>
+            <?php foreach($_document->getProject()->getAttributesFull() as $attribute) :  ?>
+            <tr>
+            	<td><?php $att = Mage::getModel('catalog/product')->getResource()->getAttribute($attribute->getAttributeCode());echo Mage::helper('catalog')->__($att->getFrontend()->getLabel()); ?></td>
+            	<td><?php echo $_document->getProduct()->getData($attribute->getAttributeCode()); ?></td>
+            	<td><?php echo isset($_translations[$attribute->getAttributeCode()])?$_translations[$attribute->getAttributeCode()]:'-'; ?></td>
+            </tr>
+            <?php endforeach; ?>
+            
+        </table>
+    </fieldset>
+</div>
+<script type="text/javascript">// <![CDATA[
+var message_completed_document = '<?php echo addslashes($_helper->__('Your product description is being approved, this will take a few moments. You can use Magento in the meantime and then come back to your project to finish it.')); ?>';
+function showCompare(url) {
+    winCompare = new Window({title:'<?php echo addslashes( $_helper->__('Message to author for revision'));  ?>',width:820,height:160,minimizable:false,maximizable:false,showEffectOptions:{duration:0.4},hideEffectOptions:{duration:0.4}});
+    winCompare.setZIndex(100);
+    winCompare.getContent().update('<textarea class="textarea" id="messageRevision" style="width: 98%;height:100px;margin:10px 0px;" name="message"></textarea><button id="sendMessage" onclick="sendRevision();"><?php echo Mage::helper('textmaster')->__('Send'); ?></button>');
+    winCompare.showCenter(true);
+ 
+}
+<?php 
+        $_project = $_document->getProject();	    
+        $docs_all = $_project->getDocumentsSendToCompleted();
+	    $docs_notcomp = $_project->getDocumentsSendNotCompleted();
+	    $ndocc = count($docs_notcomp);
+	    $ndoc = count($docs_all);
+	    
+	    if($docs_all && $ndocc) :
+	        $nd = ($ndoc-$ndocc) / $ndoc;
+	        $r = round($nd,2)*100;
+	    ?>    
+	    var jQueryCall = function($){
+	    		html = '<?php echo $r; ?>%'+'<span class="progress-cadre"><span class="progress" style="width:'+<?php echo $r; ?>+'%"></span></span>';
+				html += '<span class="message">'+message_completed_document+'</span>';
+				$('#loading_mask_loader_message').html(html);
+				$('#loading_mask_loader_message').show(0);
+				jQuery('body > .wrapper > .header').css({position:'relative',zIndex:600});
+				jQuery('body > .wrapper > .header a').click(function(e){
+					if(jQuery(this).attr('href')!='') {
+						e.preventDefault();
+						if(typeof ajax_request.transport!='undefined')
+							ajax_request.transport.abort();
+						window.location = jQuery(this).attr('href');
+						
+					}
+				});
+				iscomplete('<?php echo $this->getUrl('*/*/doccompleteready',array('id'=>$_project->getId())); ?>');
+			};    
+	    <?php endif; ?>
+
+function sendRevision (){
+	url = '<?php echo $this->getUrl('*/*/revision',array('id'=>$this->getDocument()->getId()));?>message/'+$('messageRevision').getValue();
+	//console.log(url);
+	window.location=url;
+}
+// ]]></script>
+<?php 
+

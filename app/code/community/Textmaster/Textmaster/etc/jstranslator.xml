@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Copyright (c) 2014 Textmaster
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Addonline
+ * @package     Textmaster_Textmaster
+ * @copyright   Copyright (c) 2014 Textmaster
+ * @author 	    Addonline (http://www.addonline.fr)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Textmaster_Textmaster
+ *
+ * @category    Addonline
+ * @package     Textmaster_Textmaster
+ * @copyright   Copyright (c) 2014 Textmaster
+ * @author 	    Addonline (http://www.addonline.fr)
+ */
+  -->
+  <jstranslator>
+    <textmaster_control_quality translate="message" module="textmaster">
+        <message>Control Quality</message>
+    </textmaster_control_quality>
+    <textmaster_priority translate="message" module="textmaster">
+        <message>Priority</message>
+    </textmaster_priority>
+    <textmaster_expertise translate="message" module="textmaster">
+        <message>Expertise</message>
+    </textmaster_expertise>
+    <textmaster_word translate="message" module="textmaster">
+        <message>word</message>
+    </textmaster_word>
+    <textmaster_word translate="message" module="textmaster">
+        <message>word</message>
+    </textmaster_word>
+    
+</jstranslator>
