@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Textmaster_Textmaster",
+    "name": "OpenMageModuleFostering\/Textmaster_Textmaster",
     "type": "magento-module",
     "license": "Open-Software-License",
     "homepage": "",
     "description": "Get your product descriptions translated or corrected by professionals directly through Magento.",
     "authors": [
-    {
-        "name": "Textmaster",
-        "email": "contact@textmaster.com"
-    }
-],
+        {
+            "name": "Textmaster",
+            "email": "contact@textmaster.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
